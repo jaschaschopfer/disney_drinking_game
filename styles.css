@@ -22,3 +22,78 @@
     object-fit: cover;
     object-position: center;
 }
+
+/* Grundlegende Formatierung für den gesamten Körper */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #E3F2FD; /* Helles Blau, inspiriert von Disneys Himmelsszenen */
+    color: #272727;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Vollbildhöhe */
+}
+
+/* Container für die Quiz-App */
+#questionAppContainer {
+    width: 100%;
+    max-width: 600px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Stil für das Frage-Element */
+#questionApp {
+    text-align: center;
+}
+
+h2 {
+    color: #fa6ebd; /* Kräftiges Rot, inspiriert von Micky Maus */
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Stil für das Eingabefeld */
+input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #BDBDBD; /* Weiches Grau */
+    border-radius: 4px;
+    display: block;
+    width: calc(100% - 24px);
+    margin: 20px auto;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #1976D2; /* Disney-Blau, lebhaft */
+    outline: none;
+}
+
+/* Stil für Buttons */
+button {
+    background-color: #1976D2; /* Lebhaftes Disney-Blau */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #1565C0; /* Dunkleres Disney-Blau */
+}
