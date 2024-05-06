@@ -1,0 +1,24 @@
+/* #answerInput {
+    width: 100%;
+} */
+
+:root {
+    --questionImageHeight: 100px;
+    --questionImageWidth: 100px;
+}
+
+
+#questionAppContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#questionImage {
+    width: var(--questionImageWidth);
+    height: var(--questionImageHeight);
+    object-fit: cover;
+    object-position: center;
+}
