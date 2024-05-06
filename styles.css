@@ -3,8 +3,8 @@
 } */
 
 :root {
-    --questionImageHeight: 100px;
-    --questionImageWidth: 100px;
+    --questionImageHeight: 300px;
+    --questionImageWidth: 300px;
 }
 
 
@@ -21,6 +21,10 @@
     height: var(--questionImageHeight);
     object-fit: cover;
     object-position: center;
+}
+
+#weiterButton {
+    visibility: hidden;
 }
 
 /* Grundlegende Formatierung für den gesamten Körper */
