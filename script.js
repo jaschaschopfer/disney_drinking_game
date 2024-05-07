@@ -57,16 +57,22 @@ function evaluateAnswer(clickedAnswer, correctAnswer, buttonX) {
         let clickedButton = document.querySelector(`#${buttonX}`);
         clickedButton.style.backgroundColor = "green";
 
-        addGulpsToPlayer(); // Add gulps to the player's score
-
-        setTimeout(nextQuestionPlease, 1000); // Delay the execution of the click function by 1 second
+        setTimeout(() => {
+            if (localStorage.getItem("currentPlayer")) {
+            questionApp.innerHTML = "";
+            providePlayerChoices();
+            }
+            else {
+                nextQuestionPlease();
+            }
+        }, 1000); // Delay the execution of clearing the question app and providing player choices by 1 second
         return true;
     } else {
         console.log("Incorrect.");
         let clickedButton = document.querySelector(`#${buttonX}`);
         clickedButton.style.backgroundColor = "red";
 
-        addGulpToCurrentPlayer ();
+        addGulpToCurrentPlayer();
 
         return false;
     }
@@ -83,20 +89,54 @@ function addGulpToCurrentPlayer() {
     }
 }
 
-// Add gulps in CurrentPlayer to the player's score
-function addGulpsToPlayer() {
-var currentPlayer = localStorage.getItem("currentPlayer");
-if (currentPlayer && parseInt(currentPlayer) > 0) {
-    var player = prompt("Which player are you?");
-    if (player !== null) {
-        var currentPlayerCount = parseInt(currentPlayer);
-        localStorage.removeItem("currentPlayer");
-        var playerGulps = parseInt(localStorage.getItem(player)) || 0;
-        localStorage.setItem(player, playerGulps + currentPlayerCount);
-    }
-}
+function providePlayerChoices() {
+    // Get all players except currentPlayer (as this is only temporarly used for saving current gulps)
+    let currentPlayer = localStorage.getItem("currentPlayer");
+    let allPlayers = Object.keys(localStorage).filter(player => player !== "currentPlayer");
+
+    // Display player choices and NewPlayerButton
+    let playerChoiceHTML = "<h2>Choose a player to add gulps to:</h2>";
+    allPlayers.forEach(player => {
+        playerChoiceHTML += `<button class="playerChoiceButton">${player}</button>`;
+    });
+    playerChoiceHTML += `<button id="newPlayerButton">Add player</button>`;
+    questionApp.innerHTML = playerChoiceHTML;
+
+    // Add event listeners to player choice buttons
+    document.querySelectorAll('.playerChoiceButton').forEach(button => {
+        button.addEventListener('click', () => {
+            addGulpsToSelectedPlayer(button.textContent);
+            questionApp.innerHTML = "";
+            nextQuestionPlease();
+        });
+    });
+
+    // Add event listener to NewPlayerButton
+    document.querySelector('#newPlayerButton').addEventListener('click', () => {
+        let newPlayer = createNewPlayer();
+        addGulpsToSelectedPlayer(newPlayer);
+        questionApp.innerHTML = "";
+        nextQuestionPlease();
+    });
 }
 
+function createNewPlayer() {
+    let newPlayer = prompt("Enter the name of the new player:");
+    if (newPlayer && !localStorage.getItem(newPlayer)) {
+        localStorage.setItem(newPlayer, 0);
+        return newPlayer;
+    } else {
+        alert("Player name already exists or is empty. Please try again.");
+        return createNewPlayer();
+    }
+}
+
+// Add gulps to selected player
+function addGulpsToSelectedPlayer(selectedPlayer) {
+    let currentPlayerCount = parseInt(localStorage.getItem("currentPlayer")) || 0;
+    let playerGulps = parseInt(localStorage.getItem(selectedPlayer)) || 0;
+    localStorage.setItem(selectedPlayer, playerGulps + currentPlayerCount);
+}
 
 
 //Funktionen mit API
@@ -106,7 +146,7 @@ async function getAllIds() {
         let figures = await fetchData(`https://api.disneyapi.dev/character`)
         let maximalSiteCount = figures.info.totalPages
 
-        questionApp.innerHTML = ""
+        questionApp.innerHTML = "";
         questionApp.innerHTML = `<h2>Loading approximately ${maximalSiteCount*50} Disney figures... Please wait.</h2>`
 
         console.log(`Loading approximately ${maximalSiteCount*50} Disney figures... Please wait.`);
@@ -129,6 +169,8 @@ async function getAllIds() {
 }
 
 async function nextQuestionPlease() {
+    localStorage.removeItem("currentPlayer");
+
     let figure = await getRandomFigure(); //zufälligen Charakter holen
     let randomName1 = await getRandomName();
     let randomName2 = await getRandomName();
