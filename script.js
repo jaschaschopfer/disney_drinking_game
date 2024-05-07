@@ -4,14 +4,102 @@ const weiterButton = document.querySelector('#weiterButton'); //Button mit der I
 let allIds = []; //Array für alle IDs erstellen
 
 
-// INIT FUNCTIONS
+
+
+// INIT FUNCTIONS - Get the necessary data and set up the site
 init();
-weiterButton.addEventListener('click', click);
+weiterButton.addEventListener('click', nextQuestionPlease);
 
 async function init() {
     await getAllIds(); //alle IDs holen
 }
 
+
+
+
+// CONTENT FUNCTIONS -- Change content on site when called
+function createQuestion(figure, randomName1, randomName2) {
+    // Create an array with all button names
+    let buttonNames = [figure.data.name, randomName1, randomName2];
+    // Shuffle the array to randomize button positions
+    buttonNames.sort(() => Math.random() - 0.5);
+
+    let question = document.createElement('div'); // Create a new div element
+    questionApp.innerHTML = ""; // Clear the content of the div element
+    question.innerHTML = `
+    <h2>Name the figure!</h2>
+    <img src="${figure.data.imageUrl}" alt="Image of searched figure" id="questionImage">
+    <div>
+        <button id="button1">${buttonNames[0]}</button>
+        <button id="button2">${buttonNames[1]}</button>
+        <button id="button3">${buttonNames[2]}</button>
+    </div>
+    `; // Set the content of the div element, including the character image and three buttons
+    questionApp.appendChild(question); // Append the div element to the body
+
+    // Add event listeners to all buttons
+    document.querySelector('#button1').addEventListener('click', () => {
+        evaluateAnswer(buttonNames[0], figure.data.name, 'button1');
+    });
+
+    document.querySelector('#button2').addEventListener('click', () => {
+        evaluateAnswer(buttonNames[1], figure.data.name, 'button2');
+    });
+
+    document.querySelector('#button3').addEventListener('click', () => {
+        evaluateAnswer(buttonNames[2], figure.data.name, 'button3');
+    });
+}
+
+function evaluateAnswer(clickedAnswer, correctAnswer, buttonX) {
+    if (clickedAnswer === correctAnswer) {
+        console.log("Correct!");
+        let clickedButton = document.querySelector(`#${buttonX}`);
+        clickedButton.style.backgroundColor = "green";
+
+        addGulpsToPlayer(); // Add gulps to the player's score
+
+        setTimeout(nextQuestionPlease, 1000); // Delay the execution of the click function by 1 second
+        return true;
+    } else {
+        console.log("Incorrect.");
+        let clickedButton = document.querySelector(`#${buttonX}`);
+        clickedButton.style.backgroundColor = "red";
+
+        addGulpToCurrentPlayer ();
+
+        return false;
+    }
+}
+
+// Add one gulp to CurrentPlayer
+function addGulpToCurrentPlayer() {
+    var currentPlayer = localStorage.getItem("currentPlayer");
+    if (currentPlayer) {
+        var currentPlayerCount = parseInt(currentPlayer);
+        localStorage.setItem("currentPlayer", currentPlayerCount + 1);
+    } else {
+        localStorage.setItem("currentPlayer", 1);
+    }
+}
+
+// Add gulps in CurrentPlayer to the player's score
+function addGulpsToPlayer() {
+var currentPlayer = localStorage.getItem("currentPlayer");
+if (currentPlayer && parseInt(currentPlayer) > 0) {
+    var player = prompt("Which player are you?");
+    if (player !== null) {
+        var currentPlayerCount = parseInt(currentPlayer);
+        localStorage.removeItem("currentPlayer");
+        var playerGulps = parseInt(localStorage.getItem(player)) || 0;
+        localStorage.setItem(player, playerGulps + currentPlayerCount);
+    }
+}
+}
+
+
+
+//Funktionen mit API
 async function getAllIds() {
     try {
         let siteCount = 0;
@@ -40,7 +128,7 @@ async function getAllIds() {
     }
 }
 
-async function click() {
+async function nextQuestionPlease() {
     let figure = await getRandomFigure(); //zufälligen Charakter holen
     let randomName1 = await getRandomName();
     let randomName2 = await getRandomName();
@@ -52,55 +140,6 @@ async function click() {
     console.log("Das ist randomName2 " + randomName2);
 }
 
-function createQuestion(figure, randomName1, randomName2) {
-    // Create an array with all button names
-    let buttonNames = [figure.data.name, randomName1, randomName2];
-    // Shuffle the array to randomize button positions
-    buttonNames.sort(() => Math.random() - 0.5);
-
-    let question = document.createElement('div'); // Create a new div element
-    questionApp.innerHTML = ""; // Clear the content of the div element
-    question.innerHTML = `
-    <h2>Name the figure!</h2>
-    <img src="${figure.data.imageUrl}" alt="Image of searched figure" id="questionImage">
-    <div>
-        <button id="button1">${buttonNames[0]}</button>
-        <button id="button2">${buttonNames[1]}</button>
-        <button id="button3">${buttonNames[2]}</button>
-    </div>
-    `; // Set the content of the div element, including the character image and three buttons
-    questionApp.appendChild(question); // Append the div element to the body
-
-    // Add event listeners to all buttons
-    document.getElementById('button1').addEventListener('click', () => {
-        evaluateAnswer(buttonNames[0], figure.data.name, 'button1');
-    });
-
-    document.getElementById('button2').addEventListener('click', () => {
-        evaluateAnswer(buttonNames[1], figure.data.name, 'button2');
-    });
-
-    document.getElementById('button3').addEventListener('click', () => {
-        evaluateAnswer(buttonNames[2], figure.data.name, 'button3');
-    });
-}
-
-function evaluateAnswer(clickedAnswer, correctAnswer, buttonX) {
-    if (clickedAnswer === correctAnswer) {
-        console.log("Correct!");
-        let clickedButton = document.querySelector(`#${buttonX}`);
-        clickedButton.style.backgroundColor = "green";
-        setTimeout(click, 1000); // Delay the execution of the click function by 1 second
-        return true;
-    } else {
-        console.log("Incorrect.");
-        let clickedButton = document.querySelector(`#${buttonX}`);
-        clickedButton.style.backgroundColor = "red";
-        return false;
-    }
-}
-
-//Werkzeugkasten von Funktionen
 async function getRandomFigure(){
     console.log("getRandomId");
     const randomId = allIds[Math.floor(Math.random() * allIds.length)];
@@ -117,7 +156,7 @@ async function getRandomName(){
     return(name); //return des Namens des zufälligen Charakters
 }
 
-//Daten aus einer API holen
+//Daten aus einer API hole - allgemeine Funktion
 async function fetchData(url) {
     try {
         let response = await fetch(url);
