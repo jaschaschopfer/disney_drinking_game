@@ -1,5 +1,6 @@
 const questionApp = document.querySelector('#questionApp'); //div Element mit der ID 'questionApp' speichern
 const weiterButton = document.querySelector('#weiterButton'); //Button mit der ID 'weiterButton' speichern
+const resetPlayersButton = document.querySelector('#resetPlayersButton'); //Button mit der ID 'resetPlayerButton' speichern
 // let url = 'https://api.disneyapi.dev/character'; // braucht es wohl nicht.
 let allIds = []; //Array für alle IDs erstellen
 
@@ -25,7 +26,6 @@ function createQuestion(figure, randomName1, randomName2) {
     buttonNames.sort(() => Math.random() - 0.5);
 
     let question = document.createElement('div'); // Create a new div element
-    questionApp.innerHTML = ""; // Clear the content of the div element
     question.innerHTML = `
     <h2>Name the figure!</h2>
     <img src="${figure.data.imageUrl}" alt="Image of searched figure" id="questionImage">
@@ -35,6 +35,7 @@ function createQuestion(figure, randomName1, randomName2) {
         <button id="button3">${buttonNames[2]}</button>
     </div>
     `; // Set the content of the div element, including the character image and three buttons
+    questionApp.innerHTML = ""; // Clear the content of the div element
     questionApp.appendChild(question); // Append the div element to the body
 
     // Add event listeners to all buttons
@@ -78,6 +79,9 @@ function evaluateAnswer(clickedAnswer, correctAnswer, buttonX) {
     }
 }
 
+
+
+// PLAYER FUNCTIONS -- Add, reset players, add gulps etc.
 // Add one gulp to CurrentPlayer
 function addGulpToCurrentPlayer() {
     var currentPlayer = localStorage.getItem("currentPlayer");
@@ -114,20 +118,33 @@ function providePlayerChoices() {
     // Add event listener to NewPlayerButton
     document.querySelector('#newPlayerButton').addEventListener('click', () => {
         let newPlayer = createNewPlayer();
-        addGulpsToSelectedPlayer(newPlayer);
-        questionApp.innerHTML = "";
-        nextQuestionPlease();
+        if (newPlayer !== null) {
+            addGulpsToSelectedPlayer(newPlayer);
+            questionApp.innerHTML = "";
+            nextQuestionPlease();
+        }
     });
 }
 
 function createNewPlayer() {
     let newPlayer = prompt("Enter the name of the new player:");
-    if (newPlayer && !localStorage.getItem(newPlayer)) {
+    if (newPlayer == null) {
+        console.log("NULL.");
+        return null;
+    }
+    else if (newPlayer === "") {
+        alert("Please enter a name.");
+        createNewPlayer();
+    }
+    else if (localStorage.getItem(newPlayer)) {
+        alert("Player name already exists. Please try again.");
+        createNewPlayer();
+    } 
+    else {
         localStorage.setItem(newPlayer, 0);
+        alert("Player added.");
         return newPlayer;
-    } else {
-        alert("Player name already exists or is empty. Please try again.");
-        return createNewPlayer();
+    
     }
 }
 
@@ -137,6 +154,13 @@ function addGulpsToSelectedPlayer(selectedPlayer) {
     let playerGulps = parseInt(localStorage.getItem(selectedPlayer)) || 0;
     localStorage.setItem(selectedPlayer, playerGulps + currentPlayerCount);
 }
+
+// Reset all players
+resetPlayersButton.addEventListener('click', () => {
+    if (confirm("Do you really want to reset all players?")) {
+        localStorage.clear();
+    }
+});
 
 
 //Funktionen mit API
@@ -163,6 +187,7 @@ async function getAllIds() {
         questionApp.innerHTML = `<h2>All IDs loaded!</h2>`
         console.log("All IDs loaded!");
         weiterButton.style.visibility = "visible";
+        resetPlayersButton.style.visibility = "visible";
     } catch (error) {
         console.error('Error:', error);
     }

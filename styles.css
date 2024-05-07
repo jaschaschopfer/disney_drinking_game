@@ -27,6 +27,10 @@
     visibility: hidden;
 }
 
+#resetPlayersButton {
+    visibility: hidden;
+}
+
 
 
 /* Grundlegende Formatierung für den gesamten Körper */
