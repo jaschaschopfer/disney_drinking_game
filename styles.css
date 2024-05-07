@@ -29,77 +29,91 @@
 
 
 
-/* Grundlegende Formatierung für den gesamten Körper */
+/* Importieren der Google-Schriftart */
+@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+
+/* Grundlegende Stile */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #E3F2FD; /* Helles Blau, inspiriert von Disneys Himmelsszenen */
-    color: #272727;
+    background-image: linear-gradient(to right, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%); /* Weicher Gradient, der den Sonnenuntergang nachahmt */
+    font-family: 'Handlee', cursive; /* Eine lockere, handgeschriebene Schriftart */
+    color: #333;
     margin: 0;
-    padding: 20px;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Vollbildhöhe */
+    height: 100vh;
 }
 
-/* Container für die Quiz-App */
+/* Stil des Hauptcontainers */
 #questionAppContainer {
-    width: 100%;
-    max-width: 600px;
-    background-color: #ffffff;
+    width: 80%;
+    max-width: 650px;
+    background-color: #fff4e6; /* Sehr helles Orangegelb für den Innenraum */
+    border: 5px solid #fa709a; /* Helles Rosa als Randfarbe */
+    border-radius: 20px;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-}
-
-/* Stil für das Frage-Element */
-#questionApp {
     text-align: center;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
-h2 {
-    color: #fa6ebd; /* Kräftiges Rot, inspiriert von Micky Maus */
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Stil für das Eingabefeld */
-input[type="text"] {
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid #BDBDBD; /* Weiches Grau */
-    border-radius: 4px;
-    display: block;
-    width: calc(100% - 24px);
-    margin: 20px auto;
-    transition: border-color 0.3s;
-}
-
-input[type="text"]:focus {
-    border-color: #1976D2; /* Disney-Blau, lebhaft */
-    outline: none;
-}
-
-/* Stil für Buttons */
+/* Allgemeine Button-Stile */
 button {
-    background-color: #1976D2; /* Lebhaftes Disney-Blau */
+    background-color: #8ec5fc; /* Helles Blau, ähnlich dem Himmelfarbe */
     color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 15px 30px;
+    margin-top: 20px;
+    border-radius: 10px;
     cursor: pointer;
-    border-radius: 5px;
-    margin: 5px;
-    transition: background-color 0.3s;
+    font-size: 1.2em;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s, background-color 0.3s;
 }
 
 button:hover {
-    background-color: #1565C0; /* Dunkleres Disney-Blau */
+    transform: scale(1.05);
+    background-color: #3c8ce7; /* Ein dunkleres Blau beim Hover */
+}
+
+/* Weiter-Button spezifisch */
+#weiterButton {
+    background-color: #fbc2eb; /* Ein weiches Rosa */
+}
+
+/* Fragen und Antworten Stil */
+#questionApp h2 {
+    color: #a18cd1; /* Sanftes Violett */
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+#questionImage {
+    max-width: 100%; /* Bild an Containerbreite anpassen */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Antwort-Buttons */
+#button1, #button2, #button3 {
+    width: 90%;
+    padding: 15px;
+    margin: 10px auto; /* Zentriert die Buttons horizontal mit Auto-Margin */
+    display: block; /* Stellt sicher, dass jeder Button seine eigene Zeile einnimmt */
+}
+
+/* Feedback Farben für richtige/falsche Antworten */
+button[style="background-color: green;"],
+button[style="background-color: red;"] {
+    color: white;
+    font-weight: bold;
+}
+
+/* Responsive Design für kleinere Geräte */
+@media (max-width: 600px) {
+    #questionAppContainer {
+        width: 90%;
+        border-radius: 15px;
+    }
 }
