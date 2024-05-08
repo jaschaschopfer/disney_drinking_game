@@ -30,7 +30,9 @@ function startscreen() {
     <p>🏁 First with 20 sips finishes the whole magic potion</p>
     `; // Set the content of the div element
     weiterButton.innerText = "Start the magic!"; // Change the text of the weiterButton
-    weiterButton.style.visibility = "visible"; // Make the weiterButton visible
+    // showButton(weiterButton);; // Make the weiterButton visible
+    console.log(weiterButton);
+    showButton(weiterButton);
 }
 
 function createQuestion(figure, randomName1, randomName2) {
@@ -53,19 +55,22 @@ function createQuestion(figure, randomName1, randomName2) {
     questionApp.appendChild(question); // Append the div element to the body
 
     weiterButton.innerText = "Skip!"; // Change the text of the weiterButton
-    weiterButton.style.visibility = "visible"; // Make the weiterButton visible
+    showButton(weiterButton);; // Make the weiterButton visible
 
     // Add event listeners to all buttons
     document.querySelector('#button1').addEventListener('click', () => {
         evaluateAnswer(buttonNames[0], figure.data.name, 'button1');
+        hideButton(weiterButton);
     });
 
     document.querySelector('#button2').addEventListener('click', () => {
         evaluateAnswer(buttonNames[1], figure.data.name, 'button2');
+        hideButton(weiterButton);
     });
 
     document.querySelector('#button3').addEventListener('click', () => {
         evaluateAnswer(buttonNames[2], figure.data.name, 'button3');
+        hideButton(weiterButton);
     });
 }
 
@@ -102,16 +107,28 @@ function firstTryCorrect() {
     <h2>You guessed it first try! 🎉</h2>
     <p>Hand the phone to your desired person - Let him taste the magic! - 📱➡️🧙‍♂️</p>`
     weiterButton.innerText = "Next question!";
-
+    showButton(weiterButton);
 }
 
 function firstTryWrong(currentPlayer, player) {
     console.log(`${player} takes ${currentPlayer} sip(s)!`);
-    questionApp.innerHTML = `
-    <h2>${player}, take ${currentPlayer} sip(s)! 🥤</h2>
-    `
+    if (currentPlayer > 1){
+        questionApp.innerHTML = `
+        <h2>${player}, take ${currentPlayer} sips!🍻</h2>`
+    } else {
+        questionApp.innerHTML = `
+        <h2>${player}, take ${currentPlayer} sip!🍻</h2>`
+    }
     weiterButton.innerText = "Wonderful, thanks!";
-    weiterButton.style.visibility = "visible";
+    showButton(weiterButton);;
+}
+
+function hideButton(button) {
+    button.style.visibility = "hidden";
+}
+
+function showButton(button) {
+    button.style.visibility = "visible";
 }
 
 
@@ -135,16 +152,16 @@ function providePlayerChoices() {
     let allPlayers = Object.keys(localStorage).filter(player => player !== "currentPlayer");
 
     // Display player choices and NewPlayerButton
-    weiterButton.style.visibility = "hidden"; // Hide the weiterButton
-    let playerChoiceHTML = "<h2>Choose a player to add gulps to:</h2>";
+    hideButton(weiterButton); // Hide the weiterButton
+    let playerChoiceHTML = "<h2>Who was guessing?</h2>";
     allPlayers.forEach(player => {
-        playerChoiceHTML += `<button class="playerChoiceButton">${player}</button>`;
+        playerChoiceHTML += `<button class="playerChoiceButton existingPlayerChoiceButton">${player}</button>`;
     });
-    playerChoiceHTML += `<button id="newPlayerButton">Add player</button>`;
+    playerChoiceHTML += `<button class="playerChoiceButton" id="newPlayerButton">A new player</button>`;
     questionApp.innerHTML = playerChoiceHTML;
 
     // Add event listeners to player choice buttons
-    document.querySelectorAll('.playerChoiceButton').forEach(button => {
+    document.querySelectorAll('.existingPlayerChoiceButton').forEach(button => {
         button.addEventListener('click', () => {
             addGulpsToSelectedPlayer(button.textContent);
             firstTryWrong(currentPlayer, button.textContent);
@@ -177,7 +194,6 @@ function createNewPlayer() {
     } 
     else {
         localStorage.setItem(newPlayer, 0);
-        alert("Player added.");
         return newPlayer;
     
     }

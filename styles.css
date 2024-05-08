@@ -113,21 +113,6 @@ button:hover {
     display: block; /* Stellt sicher, dass jeder Button seine eigene Zeile einnimmt */
 }
 
-.playerChoiceButton {
-    width: 90%;             /* Setzt die Breite jedes Buttons auf 90% des Elternelements */
-    padding: 15px;          /* Fügt oben und unten 15px Polsterung hinzu */
-    margin: 10px auto;      /* Zentriert die Buttons horizontal und fügt vertikalen Abstand hinzu */
-    display: block;         /* Stellt sicher, dass jeder Button als Block angezeigt wird und seine eigene Zeile einnimmt */
-    font-size: 16px;        /* Legt die Schriftgröße fest */
-    text-align: center;     /* Zentriert den Text innerhalb der Buttons */
-    border-radius: 5px;     /* Fügt abgerundete Ecken hinzu */
-    background-color: #f0f0f0; /* Hintergrundfarbe der Buttons */
-    color: #333;            /* Textfarbe der Buttons */
-    border: 1px solid #ccc; /* Fügt einen Rahmen hinzu */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Fügt einen leichten Schatten für einen 3D-Effekt hinzu */
-    cursor: pointer;        /* Ändert den Mauszeiger zu einem Zeiger, wenn er über den Button fährt */
-}
-
 
 .playerChoiceButton {
     width: 90%;             /* Setzt die Breite jedes Buttons auf 90% des Elternelements */
@@ -148,6 +133,11 @@ button:hover {
 .playerChoiceButton:hover {
     transform: scale(1.05); /* Vergrößert den Button leicht beim Hover */
     background-color: #3c8ce7; /* Ein dunkleres Blau beim Hover */
+}
+
+#newPlayerButton {
+    background-color: #fbc2eb; /* Ein weiches Rosa */
+    margin-top: 20px;
 }
 
 /* Feedback Farben für richtige/falsche Antworten */
