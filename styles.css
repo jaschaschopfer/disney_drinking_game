@@ -44,7 +44,7 @@
 
 /* Grundlegende Stile */
 body {
-    background-image: linear-gradient(to right, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%); /* Weicher Gradient, der den Sonnenuntergang nachahmt */
+    background-image: linear-gradient(to right, #8ec5fc 0%, #fbc2eb 99%, #fad0c4 100%); /* Weicher Gradient, der den Sonnenuntergang nachahmt */
     font-family: 'Handlee', cursive; /* Eine lockere, handgeschriebene Schriftart */
     color: #333;
     margin: 0;
@@ -94,7 +94,7 @@ button:hover {
 
 /* Fragen und Antworten Stil */
 #questionApp h2 {
-    color: #a18cd1; /* Sanftes Violett */
+    color: #fa709a; /* Sanftes Violett */
     margin-bottom: 20px;
     font-size: 1.8em;
 }
@@ -157,7 +157,7 @@ button[style="background-color: red;"] {
 
 h1 {
     font-size: 48px;               /* Große Schriftgröße für gute Sichtbarkeit */
-    color: #4A90E2;                /* Wählt eine ansprechende, leuchtende Farbe */
+    color:#3c8ce7;                /* Wählt eine ansprechende, leuchtende Farbe */
     text-align: center;            /* Zentriert den Titel horizontal */
     font-weight: bold;             /* Macht die Schrift fett, um mehr Aufmerksamkeit zu erregen */
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Fügt einen weichen Schatten hinzu für mehr Tiefe */
