@@ -33,6 +33,7 @@ function startscreen() {
     // showButton(weiterButton);; // Make the weiterButton visible
     console.log(weiterButton);
     showButton(weiterButton);
+    document.querySelector('#gameStats').style.display = 'none';
 }
 
 function createQuestion(figure, randomName1, randomName2) {
@@ -119,16 +120,22 @@ function firstTryWrong(currentPlayer, player) {
         console.log(`${player} takes ${currentPlayer} sip(s)!`);
         if (currentPlayer > 1){
             questionApp.innerHTML = `
-            <h2>${player}, take ${currentPlayer} sips!🍻</h2>`
+            <h2>${player}, take ${currentPlayer} sips!🍻</h2>
+            <p>Hand the phone to your next person</p>`
         } else {
             questionApp.innerHTML = `
-            <h2>${player}, take ${currentPlayer} sip!🍻</h2>`
+            <h2>${player}, take ${currentPlayer} sip!🍻</h2>
+            <p>Hand the phone to your next person</p>`
         }
         weiterButton.innerText = "Wonderful, thanks!";
-        showButton(weiterButton);;
+        showButton(weiterButton);
 
         document.querySelector('#gameStats').style.display = 'block';
     }
+}
+
+function clearButton(button) {
+    button.style.display = "none";
 }
 
 function hideButton(button) {
@@ -136,6 +143,7 @@ function hideButton(button) {
 }
 
 function showButton(button) {
+    button.style.display = "block";
     button.style.visibility = "visible";
 }
 
@@ -147,7 +155,8 @@ function updatePlayerProgressBars() {
     // Iterate over each player stored in localStorage
     for (let i = 0; i < localStorage.length; i++) {
         const playerName = localStorage.key(i);
-        if (playerName !== 'currentPlayer') {
+        const player = parseInt(localStorage.getItem(playerName));
+        if (playerName !== 'currentPlayer' && player < 20) {
             const playerGulps = parseInt(localStorage.getItem(playerName));
             const maxGulps = 20; // Assuming each player has to take a maximum of 20 sips
 
@@ -195,7 +204,7 @@ function providePlayerChoices() {
     let allPlayers = Object.keys(localStorage).filter(player => player !== "currentPlayer");
 
     // Display player choices and NewPlayerButton
-    hideButton(weiterButton); // Hide the weiterButton
+    clearButton(weiterButton); // Hide the weiterButton
     let playerChoiceHTML = "<h2>Who was guessing?</h2>";
     allPlayers.forEach(player => {
         playerChoiceHTML += `<button class="playerChoiceButton existingPlayerChoiceButton">${player}</button>`;
@@ -270,11 +279,11 @@ function checkIfPlayerLost(player) {
 }
 
 function gameOver(player) {
+    let playerGulps = parseInt(localStorage.getItem(player));
     questionApp.innerHTML = `
     <h1>Game Over!</h1>
-    <h2>${player}, you have the honor to drink the whole magic potion! 🎉 </h2>`
-
-    
+    <h2>${player}, you got a total of ${playerGulps} sips. Now you have the honor to drink the rest of your whole magic potion! 🎉 </h2>`
+    document.querySelector('#gameStats').style.display = 'block';
 }
 
 
