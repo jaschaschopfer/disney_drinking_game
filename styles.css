@@ -107,6 +107,43 @@ button:hover {
     display: block; /* Stellt sicher, dass jeder Button seine eigene Zeile einnimmt */
 }
 
+.playerChoiceButton {
+    width: 90%;             /* Setzt die Breite jedes Buttons auf 90% des Elternelements */
+    padding: 15px;          /* Fügt oben und unten 15px Polsterung hinzu */
+    margin: 10px auto;      /* Zentriert die Buttons horizontal und fügt vertikalen Abstand hinzu */
+    display: block;         /* Stellt sicher, dass jeder Button als Block angezeigt wird und seine eigene Zeile einnimmt */
+    font-size: 16px;        /* Legt die Schriftgröße fest */
+    text-align: center;     /* Zentriert den Text innerhalb der Buttons */
+    border-radius: 5px;     /* Fügt abgerundete Ecken hinzu */
+    background-color: #f0f0f0; /* Hintergrundfarbe der Buttons */
+    color: #333;            /* Textfarbe der Buttons */
+    border: 1px solid #ccc; /* Fügt einen Rahmen hinzu */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Fügt einen leichten Schatten für einen 3D-Effekt hinzu */
+    cursor: pointer;        /* Ändert den Mauszeiger zu einem Zeiger, wenn er über den Button fährt */
+}
+
+
+.playerChoiceButton {
+    width: 90%;             /* Setzt die Breite jedes Buttons auf 90% des Elternelements */
+    padding: 15px;          /* Fügt gleichmäßig 15px Polsterung hinzu */
+    margin: 10px auto 10px; /* Zentriert die Buttons horizontal und fügt oben und unten 10px Abstand hinzu */
+    display: block;         /* Stellt sicher, dass jeder Button als Block angezeigt wird und seine eigene Zeile einnimmt */
+    background-color: #8ec5fc; /* Helles Blau, ähnlich dem Himmelfarbe */
+    color: white;           /* Weiße Textfarbe */
+    border: none;           /* Kein Rahmen */
+    border-radius: 10px;    /* Runde Ecken mit 10px Radius */
+    cursor: pointer;        /* Ändert den Mauszeiger zu einem Zeiger, wenn er über den Button fährt */
+    font-size: 1.2em;       /* Legt eine größere Schriftgröße fest */
+    font-weight: bold;      /* Fettgedruckter Text */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Fügt einen Schatten hinzu für einen leicht erhöhten Effekt */
+    transition: transform 0.2s, background-color 0.3s; /* Weiche Übergänge für Transform und Farbänderung */
+}
+
+.playerChoiceButton:hover {
+    transform: scale(1.05); /* Vergrößert den Button leicht beim Hover */
+    background-color: #3c8ce7; /* Ein dunkleres Blau beim Hover */
+}
+
 /* Feedback Farben für richtige/falsche Antworten */
 button[style="background-color: green;"],
 button[style="background-color: red;"] {
@@ -122,3 +159,22 @@ button[style="background-color: red;"] {
     }
 }
 
+h1 {
+    font-size: 48px;               /* Große Schriftgröße für gute Sichtbarkeit */
+    color: #4A90E2;                /* Wählt eine ansprechende, leuchtende Farbe */
+    text-align: center;            /* Zentriert den Titel horizontal */
+    font-weight: bold;             /* Macht die Schrift fett, um mehr Aufmerksamkeit zu erregen */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Fügt einen weichen Schatten hinzu für mehr Tiefe */
+    margin-top: 20px;              /* Fügt oben einen Abstand hinzu */
+    margin-bottom: 20px;           /* Fügt unten einen Abstand hinzu */
+    padding: 10px;                 /* Fügt innen ein wenig Polsterung hinzu für bessere Optik */
+    background-color: rgba(255, 255, 255, 0.5); /* Leicht transparenter Hintergrund, um den Titel hervorzuheben */
+    border-radius: 10px;           /* Abgerundete Ecken für modernes Aussehen */
+}
+
+/* Responsive Anpassungen für kleinere Bildschirme */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 32px;           /* Etwas kleinere Schriftgröße auf kleineren Bildschirmen */
+    }
+}
