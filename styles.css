@@ -7,7 +7,6 @@
     --questionImageWidth: 300px;
 }
 
-
 #questionAppContainer {
     display: flex;
     flex-direction: column;
@@ -23,20 +22,24 @@
     object-position: center;
 }
 
-#startButton {
-    visibility: hidden;
-}
-
 #weiterButton {
     visibility: hidden;
 }
 
-#resetPlayersButton {
+#resetButton {
+    cursor: pointer;
+    position: absolute;
+    margin: 0;
+    top: 10px;
+    right: 10px;
+    width: 40px; /* Adjust as needed */
+    height: 40px; /* Adjust as needed */
     visibility: hidden;
 }
 
-
-
+#resetButton path {
+    stroke-width: 2; /* Adjust thickness of strokes */
+}
 
 
 /* Importieren der Google-Schriftart */
@@ -57,7 +60,7 @@ body {
 
 
 /* Stil des Hauptcontainers */
-#questionAppContainer {
+#gameContainer {
     width: 80%;
     max-width: 650px;
     background-color: #fff4e6; /* Sehr helles Orangegelb für den Innenraum */
@@ -66,6 +69,17 @@ body {
     padding: 20px;
     text-align: center;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+#gameStats {
+    text-align: left;
+    margin: 20px;
+    display: none;
+}
+
+#gameStats h3 {
+    text-align: center;
 }
 
 /* Allgemeine Button-Stile */
@@ -86,24 +100,6 @@ button {
 button:hover {
     transform: scale(1.05);
     background-color: #3c8ce7; /* Ein dunkleres Blau beim Hover */
-}
-
-/* Weiter-Button spezifisch */
-#weiterButton {
-    background-color: #fbc2eb; /* Ein weiches Rosa */
-}
-
-/* Fragen und Antworten Stil */
-#questionApp h2 {
-    color: #fa709a; /* Sanftes Violett */
-    margin-bottom: 20px;
-    font-size: 1.8em;
-}
-
-#questionImage {
-    max-width: 100%; /* Bild an Containerbreite anpassen */
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 /* Antwort-Buttons */
@@ -141,11 +137,48 @@ button:hover {
     margin-top: 20px;
 }
 
-/* Feedback Farben für richtige/falsche Antworten */
-button[style="background-color: green;"],
-button[style="background-color: red;"] {
-    color: white;
-    font-weight: bold;
+#weiterButton {
+    background-color: #fbc2eb; /* Ein weiches Rosa */
+}
+
+#menu button {
+    font-size: 5px;
+    height: 5px;
+    background-color: #fa709a;
+}
+
+/* Progress bar */
+
+/* CSS for progress bars */
+.playerProgressBar {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.playerName {
+    margin-bottom: 5px;
+}
+
+.playerProgress {
+    width: 100%;
+    height: 20px;
+    border-radius: 5px;
+    background-color: #4caf50; /* Color of the progress bar */
+}
+
+
+/* Fragen und Antworten Stil */
+#questionApp h2 {
+    color: #fa709a; /* Sanftes Violett */
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+#questionImage {
+    max-width: 100%; /* Bild an Containerbreite anpassen */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 /* Responsive Design für kleinere Geräte */
