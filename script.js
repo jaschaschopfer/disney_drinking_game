@@ -27,6 +27,7 @@ function startscreen() {
     <p>🥤 Take a sip for every wrong answer!</p>
     <p>🤔 You guess until you get it right!</p>
     <p>👉 Get it first try and decide who's next!</p>
+    <p>🏁 First with 20 sips finishes the whole magic potion</p>
     `; // Set the content of the div element
     weiterButton.innerText = "Start the magic!"; // Change the text of the weiterButton
     weiterButton.style.visibility = "visible"; // Make the weiterButton visible
@@ -101,8 +102,16 @@ function firstTryCorrect() {
     <h2>You guessed it first try! 🎉</h2>
     <p>Hand the phone to your desired person - Let him taste the magic! - 📱➡️🧙‍♂️</p>`
     weiterButton.innerText = "Next question!";
-    weiterButton.visibility = "visible";
 
+}
+
+function firstTryWrong(currentPlayer, player) {
+    console.log(`${player} takes ${currentPlayer} sip(s)!`);
+    questionApp.innerHTML = `
+    <h2>${player}, take ${currentPlayer} sip(s)! 🥤</h2>
+    `
+    weiterButton.innerText = "Wonderful, thanks!";
+    weiterButton.style.visibility = "visible";
 }
 
 
@@ -111,9 +120,9 @@ function firstTryCorrect() {
 // PLAYER FUNCTIONS -- Add, reset players, add gulps etc.
 // Add one gulp to CurrentPlayer
 function addGulpToCurrentPlayer() {
-    var currentPlayer = localStorage.getItem("currentPlayer");
+    let currentPlayer = localStorage.getItem("currentPlayer");
     if (currentPlayer) {
-        var currentPlayerCount = parseInt(currentPlayer);
+        let currentPlayerCount = parseInt(currentPlayer);
         localStorage.setItem("currentPlayer", currentPlayerCount + 1);
     } else {
         localStorage.setItem("currentPlayer", 1);
@@ -138,8 +147,7 @@ function providePlayerChoices() {
     document.querySelectorAll('.playerChoiceButton').forEach(button => {
         button.addEventListener('click', () => {
             addGulpsToSelectedPlayer(button.textContent);
-            questionApp.innerHTML = "";
-            nextQuestionPlease();
+            firstTryWrong(currentPlayer, button.textContent);
         });
     });
 
@@ -148,8 +156,7 @@ function providePlayerChoices() {
         let newPlayer = createNewPlayer();
         if (newPlayer !== null) {
             addGulpsToSelectedPlayer(newPlayer);
-            questionApp.innerHTML = "";
-            nextQuestionPlease();
+            firstTryWrong(currentPlayer, newPlayer);
         }
     });
 }
@@ -262,6 +269,7 @@ async function fetchData(url) {
         console.log(error);
     }
 }
+
 
 
 
