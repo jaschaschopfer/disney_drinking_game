@@ -13,12 +13,25 @@ weiterButton.addEventListener('click', nextQuestionPlease);
 
 async function init() {
     await getAllIds(); //alle IDs holen
+    startscreen(); //Startbildschirm anzeigen
 }
 
 
 
-
 // CONTENT FUNCTIONS -- Change content on site when called
+function startscreen() {
+    questionApp.innerHTML = `
+    <h1>🥂Drinksney🥂</h1>
+    <h2>The most family-friendly drinking game ever!</h2>
+    <h3>✨ 3 wonderful rules ✨</h3>
+    <p>🥤 Take a sip for every wrong answer!</p>
+    <p>🤔 You guess until you get it right!</p>
+    <p>👉 Get it first try and decide who's next!</p>
+    `; // Set the content of the div element
+    weiterButton.innerText = "Start the magic!"; // Change the text of the weiterButton
+    weiterButton.style.visibility = "visible"; // Make the weiterButton visible
+}
+
 function createQuestion(figure, randomName1, randomName2) {
     // Create an array with all button names
     let buttonNames = [figure.data.name, randomName1, randomName2];
@@ -37,6 +50,9 @@ function createQuestion(figure, randomName1, randomName2) {
     `; // Set the content of the div element, including the character image and three buttons
     questionApp.innerHTML = ""; // Clear the content of the div element
     questionApp.appendChild(question); // Append the div element to the body
+
+    weiterButton.innerText = "Skip!"; // Change the text of the weiterButton
+    weiterButton.style.visibility = "visible"; // Make the weiterButton visible
 
     // Add event listeners to all buttons
     document.querySelector('#button1').addEventListener('click', () => {
@@ -64,7 +80,7 @@ function evaluateAnswer(clickedAnswer, correctAnswer, buttonX) {
             providePlayerChoices();
             }
             else {
-                nextQuestionPlease();
+                firstTryCorrect();
             }
         }, 1000); // Delay the execution of clearing the question app and providing player choices by 1 second
         return true;
@@ -78,6 +94,17 @@ function evaluateAnswer(clickedAnswer, correctAnswer, buttonX) {
         return false;
     }
 }
+
+function firstTryCorrect() {
+    console.log("First try correct!");
+    questionApp.innerHTML = `
+    <h2>You guessed it first try! 🎉</h2>
+    <p>Hand the phone to your desired person - Let him taste the magic! - 📱➡️🧙‍♂️</p>`
+    weiterButton.innerText = "Next question!";
+    weiterButton.visibility = "visible";
+
+}
+
 
 
 
@@ -99,6 +126,7 @@ function providePlayerChoices() {
     let allPlayers = Object.keys(localStorage).filter(player => player !== "currentPlayer");
 
     // Display player choices and NewPlayerButton
+    weiterButton.style.visibility = "hidden"; // Hide the weiterButton
     let playerChoiceHTML = "<h2>Choose a player to add gulps to:</h2>";
     allPlayers.forEach(player => {
         playerChoiceHTML += `<button class="playerChoiceButton">${player}</button>`;
@@ -171,7 +199,9 @@ async function getAllIds() {
         let maximalSiteCount = figures.info.totalPages
 
         questionApp.innerHTML = "";
-        questionApp.innerHTML = `<h2>Loading approximately ${maximalSiteCount*50} Disney figures... Please wait.</h2>`
+        questionApp.innerHTML = `
+        <h2>Loading game... Please wait.</h2>
+        <p>Approximately ${maximalSiteCount*50} Disney figures are being loaded.</p>`
 
         console.log(`Loading approximately ${maximalSiteCount*50} Disney figures... Please wait.`);
 
@@ -186,8 +216,6 @@ async function getAllIds() {
         questionApp.innerHTML = ""
         questionApp.innerHTML = `<h2>All IDs loaded!</h2>`
         console.log("All IDs loaded!");
-        weiterButton.style.visibility = "visible";
-        resetPlayersButton.style.visibility = "visible";
     } catch (error) {
         console.error('Error:', error);
     }

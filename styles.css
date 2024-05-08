@@ -23,6 +23,10 @@
     object-position: center;
 }
 
+#startButton {
+    visibility: hidden;
+}
+
 #weiterButton {
     visibility: hidden;
 }
@@ -30,6 +34,8 @@
 #resetPlayersButton {
     visibility: hidden;
 }
+
+
 
 
 
