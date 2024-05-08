@@ -113,18 +113,22 @@ function firstTryCorrect() {
 }
 
 function firstTryWrong(currentPlayer, player) {
-    console.log(`${player} takes ${currentPlayer} sip(s)!`);
-    if (currentPlayer > 1){
-        questionApp.innerHTML = `
-        <h2>${player}, take ${currentPlayer} sips!🍻</h2>`
+    if (checkIfPlayerLost(player)) {
+        gameOver(player);
     } else {
-        questionApp.innerHTML = `
-        <h2>${player}, take ${currentPlayer} sip!🍻</h2>`
-    }
-    weiterButton.innerText = "Wonderful, thanks!";
-    showButton(weiterButton);;
+        console.log(`${player} takes ${currentPlayer} sip(s)!`);
+        if (currentPlayer > 1){
+            questionApp.innerHTML = `
+            <h2>${player}, take ${currentPlayer} sips!🍻</h2>`
+        } else {
+            questionApp.innerHTML = `
+            <h2>${player}, take ${currentPlayer} sip!🍻</h2>`
+        }
+        weiterButton.innerText = "Wonderful, thanks!";
+        showButton(weiterButton);;
 
-    document.querySelector('#gameStats').style.display = 'block';
+        document.querySelector('#gameStats').style.display = 'block';
+    }
 }
 
 function hideButton(button) {
@@ -254,6 +258,24 @@ resetButton.addEventListener('click', () => {
         startscreen();
     }
 });
+
+function checkIfPlayerLost(player) {
+    let playerGulps = parseInt(localStorage.getItem(player));
+    if (playerGulps >= 20) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+function gameOver(player) {
+    questionApp.innerHTML = `
+    <h1>Game Over!</h1>
+    <h2>${player}, you have the honor to drink the whole magic potion! 🎉 </h2>`
+
+    
+}
 
 
 //Funktionen mit API
