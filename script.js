@@ -1,6 +1,6 @@
 const questionApp = document.querySelector('#questionApp'); //div Element mit der ID 'questionApp' speichern
 const weiterButton = document.querySelector('#weiterButton'); //Button mit der ID 'weiterButton' speichern
-const resetPlayersButton = document.querySelector('#resetPlayersButton'); //Button mit der ID 'resetPlayerButton' speichern
+const resetButton = document.querySelector('#resetButton'); //Button mit der ID 'resetPlayerButton' speichern
 // let url = 'https://api.disneyapi.dev/character'; // braucht es wohl nicht.
 let allIds = []; //Array für alle IDs erstellen
 
@@ -23,7 +23,7 @@ function startscreen() {
     questionApp.innerHTML = `
     <h1>🥂Drinksney🥂</h1>
     <h2>The most family-friendly drinking game ever!</h2>
-    <h3>✨ 3 wonderful rules ✨</h3>
+    <h3>✨ Look at those wonderful rules ✨</h3>
     <p>🥤 Take a sip for every wrong answer!</p>
     <p>🤔 You guess until you get it right!</p>
     <p>👉 Get it first try and decide who's next!</p>
@@ -56,6 +56,8 @@ function createQuestion(figure, randomName1, randomName2) {
 
     weiterButton.innerText = "Skip!"; // Change the text of the weiterButton
     showButton(weiterButton);; // Make the weiterButton visible
+    showButton(resetButton);; // Make the resetButton visible$
+    document.querySelector('#gameStats').style.display = 'none';
 
     // Add event listeners to all buttons
     document.querySelector('#button1').addEventListener('click', () => {
@@ -121,6 +123,8 @@ function firstTryWrong(currentPlayer, player) {
     }
     weiterButton.innerText = "Wonderful, thanks!";
     showButton(weiterButton);;
+
+    document.querySelector('#gameStats').style.display = 'block';
 }
 
 function hideButton(button) {
@@ -129,6 +133,41 @@ function hideButton(button) {
 
 function showButton(button) {
     button.style.visibility = "visible";
+}
+
+// Progress bar
+function updatePlayerProgressBars() {
+    const playerProgressBars = document.getElementById('playerProgressBars');
+    playerProgressBars.innerHTML = ''; // Clear previous progress bars
+
+    // Iterate over each player stored in localStorage
+    for (let i = 0; i < localStorage.length; i++) {
+        const playerName = localStorage.key(i);
+        if (playerName !== 'currentPlayer') {
+            const playerGulps = parseInt(localStorage.getItem(playerName));
+            const maxGulps = 20; // Assuming each player has to take a maximum of 20 sips
+
+            // Calculate the width of the progress bar based on the percentage of sips taken
+            const progressWidth = ((playerGulps + 0.1) / maxGulps) * 100;
+
+            // Create HTML elements for the progress bar, its container, and the player name
+            const progressBarContainer = document.createElement('div');
+            progressBarContainer.classList.add('playerProgressBar');
+
+            const playerNameElement = document.createElement('span');
+            playerNameElement.textContent = `${playerName}: ${playerGulps} / ${maxGulps} sips`;
+            playerNameElement.classList.add('playerName');
+
+            const progressBar = document.createElement('div');
+            progressBar.classList.add('playerProgress');
+            progressBar.style.width = progressWidth + '%';
+
+            // Append player name and progress bar to its container and then to the playerProgressBars section
+            progressBarContainer.appendChild(playerNameElement);
+            progressBarContainer.appendChild(progressBar);
+            playerProgressBars.appendChild(progressBarContainer);
+        }
+    }
 }
 
 
@@ -204,12 +243,15 @@ function addGulpsToSelectedPlayer(selectedPlayer) {
     let currentPlayerCount = parseInt(localStorage.getItem("currentPlayer")) || 0;
     let playerGulps = parseInt(localStorage.getItem(selectedPlayer)) || 0;
     localStorage.setItem(selectedPlayer, playerGulps + currentPlayerCount);
+
+    updatePlayerProgressBars();
 }
 
 // Reset all players
-resetPlayersButton.addEventListener('click', () => {
-    if (confirm("Do you really want to reset all players?")) {
+resetButton.addEventListener('click', () => {
+    if (confirm("Do you really want to reset?")) {
         localStorage.clear();
+        startscreen();
     }
 });
 
