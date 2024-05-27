@@ -1,3 +1,6 @@
+#team {
+    display: none;
+}
 /* #answerInput {
     width: 100%;
 } */
@@ -235,18 +238,15 @@ button:hover {
 
 }
 
-#questionImage {
-    max-width: 100%;
-    /* Bild an Containerbreite anpassen */
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#questionImage {
+img {
     width: var(--questionImageWidth);
     height: var(--questionImageHeight);
+    max-width: 100%;
+    /* Bild an Containerbreite anpassen */
     object-fit: cover;
     object-position: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #progress-container {
