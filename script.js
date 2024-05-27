@@ -141,7 +141,7 @@ function providePlayerChoices() { //this function is called after the player cli
 function firstTryCorrect() {
     questionApp.innerHTML = `
     <h2>You guessed it first try! 🎉</h2>
-    <p>Hand the phone to your desired person - Let him taste the magic! - 📱➡️🧙‍♂️</p>`
+    <p>Hand the phone to your desired person 📱➡️🧙‍♂️</p>`
     weiterButton.innerText = "Next question!";
     showButton(weiterButton);
 }

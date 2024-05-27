@@ -178,6 +178,8 @@ button:hover {
     /* Versteckt den Button standardmäßig */
     background-color: #fbc2eb;
     /* Ein weiches Rosa */
+    margin: auto;
+    margin-bottom: 20px;
 }
 
 #resetButton {
@@ -303,11 +305,5 @@ img {
         display: block;
         margin: auto;
 
-    }
-
-    #weiterButton {
-        visibility: hidden;
-        background-color: #fbc2eb;
-        margin: auto;
     }
 }
