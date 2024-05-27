@@ -12,11 +12,10 @@ Wir haben uns für das Disney-Trinkspiel "Drinksney" entschieden. Es handelt sic
 
 So einfach gehts
 - 
-Bild anzeigen: Ein Bild eines Disney-Charakters wird gezeigt.
-Namensoptionen: Drei Namen werden als Auswahlmöglichkeiten angezeigt.
-Wähle den richtigen Namen und du musst nicht trinken. Bei einer falschen Wahl rate  weiter, bis du den richtigen Namen gefunden hast.
+Bild anzeigen: Ein Bild eines Disney-Charakters wird gezeigt. Falls kein Bild angezeigt wird, hat man die Möglichkeit auf den Button "skip" zu klicken.
+Namensoptionen: Drei Namen werden als Auswahlmöglichkeiten angezeigt. Wenn man den richtigen Namen erraten hat, muss man nicht trinken. Bei einer falschen Wahl muss man weiterraten, bis der richtige Namen gefunden wurde.
 Quizfrage: Nach jeder falschen Antwort fragt das Spiel, welcher Spieler an der Reihe war, und man muss den Namen der Person eintragen. Darunter wird angezeigt, wie viele Schlücke die Person trinken muss.
-Weitergeben: Gib das Handy oder den Laptop an die nächste Person weiter. Wenn du die Antwort beim ersten Versuch erraten hast, kannst du das Handy oder den Laptop an eine beliebige von dir ausgewählte Person weitergeben.
+Weitergeben: Das Handy oder der Laptop muss an die nächste Person weitergegeben werden. Wenn man die Antwort beim ersten Versuch erraten hat, kann das Handy oder der Laptop an eine beliebig dir ausgewählte Person weitergeben werden.
 Das Ziel des Spiels ist es, so wenig Schlücke wie möglich trinken zu müssen. Wer bei 20 Schlücken angelangt ist, hat verloren und muss sein Getränk leertrinken. Das Spiel kann dann wieder von vorne begonnen werden.
 
 Perfekt für einen lustigen Abend mit Freunden oder Familie, bei dem alle ihr Disney-Wissen testen können!
