@@ -154,11 +154,11 @@ function firstTryWrong(currentPlayer, player) { //this function is called to set
         if (currentPlayer > 1){
             questionApp.innerHTML = `
             <h2>${player}, take ${currentPlayer} sips!🍻</h2>
-            <p>Hand the phone to your next person</p>`
+            <p>Hand the phone to your next person.</p>`
         } else {
             questionApp.innerHTML = `
             <h2>${player}, take ${currentPlayer} sip!🍻</h2>
-            <p>Hand the phone to your next person</p>`
+            <p>Hand the phone to your next person.</p>`
         }
         weiterButton.innerText = "Wonderful, thanks!"; //let the player thank for the sips
         showButton(weiterButton);
@@ -219,7 +219,7 @@ function gameOver(player) {
     let playerGulps = parseInt(localStorage.getItem(player));
     questionApp.innerHTML = `
     <h1>Game Over!</h1>
-    <h2>${player}, you got a total of ${playerGulps} sips. Now you have the honor to drink the rest of your whole magic potion! 🎉 </h2>`
+    <h2>${player}, you got a total of ${playerGulps} sips. Now you have the honor to drink the rest of your whole magic potion! 🔮🍹 </h2>`
     gameStats.style.display = 'block';
 }
 

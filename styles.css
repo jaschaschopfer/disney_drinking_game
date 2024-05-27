@@ -29,7 +29,7 @@ body {
 }
 
 h1 {
-    font-size: 48px;
+    font-size: 3em;
     /* Große Schriftgröße für gute Sichtbarkeit */
     color: #3c8ce7;
     /* Wählt eine ansprechende, leuchtende Farbe */
@@ -279,9 +279,18 @@ img {
 /* Responsive Anpassungen für kleinere Bildschirme */
 @media (max-width: 600px) {
     h1 {
-        font-size: 32px;
+        font-size: 2em;
         /* Etwas kleinere Schriftgröße auf kleineren Bildschirmen */
     }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    p{
+        font-size: 1.10em;
+    }
+    
 
     #teamButton {
         height: 30px;
