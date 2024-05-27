@@ -17,6 +17,8 @@ Nachdem man auf den Button "Start the magic" drückt, wird ein Bild eines Disney
 Perfekt für einen lustigen Abend mit Freunden oder Familie, bei dem alle ihr Disney-Wissen testen können!
 
 Learnings
+- 
+
 - JavaScript
 - API Abfragen und Logik/Struktur der Daten
 - Aufteilen von Aufgaben in Funktionen // Struktur erarbeiten
@@ -24,6 +26,8 @@ Learnings
 - Visuelle Elemente wie Fortschrittbars
 
 Schwierigkeiten
+- 
+
 - Aufteilen in elementare Funktionen war zum Teil im Nachhinein noch nötig
 - Debuggen / Testing sehr intensiv, damit man alle Fälle abdeckt
 - ChatGPT hat geholfen, aber vieles uneinheitlich gemacht. Hier musste man nachbessern
@@ -31,6 +35,7 @@ Schwierigkeiten
 
 Benutzte Ressourcen
 - 
+
 Wir haben mit folgenden Ressourcen gearbeiten, wenn wir Hilfe benötigten:
 - KI: Chat GPT 4.0, 3.5 und Github Copilot
 - W3Schools
