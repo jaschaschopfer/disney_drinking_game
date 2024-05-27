@@ -2,7 +2,6 @@ const questionApp = document.querySelector('#questionApp'); //save div element w
 const weiterButton = document.querySelector('#weiterButton'); //save button element with the ID 'weiterButton' in the variable weiterButton
 const resetButton = document.querySelector('#resetButton'); //save button element with the ID 'resetButton' in the variable resetButton
 const loadingBar = document.querySelector('#loading-bar'); //save div element with the ID 'loading-bar' in the variable loadingBar
-const teamButton = document.querySelector('#teamButton'); //save button element with the ID 'teamButton' in the variable teamButton
 const gameStats = document.querySelector('#gameStats'); //save div element with the ID 'gameStats' in the variable gameStats
 const playerProgressBars = document.querySelector('#playerProgressBars');   //save div element with the ID 'playerProgressBars' in the variable playerProgressBars
 let allIds = []; //Array für alle IDs erstellen
@@ -33,8 +32,6 @@ function startscreen() {
     `; // Load the content of the startscreen into the questionApp div element
     weiterButton.innerText = "Start the magic!"; // Set the text of the weiterButton
     showButton(weiterButton); // Make the weiterButton visible (because it was hidden initially on the loading screen)
-    hideButton(resetButton); // Hide the resetButton
-    showButton(teamButton); // Make the teamButton visible
     loadingBar.style.display = 'none'; // Hide the loading bar
     gameStats.style.display = 'none';   // Hide the gameStats div element
 }
@@ -58,10 +55,9 @@ function createQuestion(figure, randomName1, randomName2) {
     questionApp.appendChild(question); // Append the div element to the body
 
     weiterButton.innerText = "Skip!"; // Change the text of the weiterButton
-    showButton(weiterButton); // Make the weiterButton visible (in case it was hidden on the last screen)
-    hideButton(teamButton); // Hide the teamButton
-    showButton(resetButton); // Make the resetButton visible (in case it was hidden on the last screen)
-    teamButton.style.display = 'none'; // Hide the team div element
+    showButton(weiterButton);; // Make the weiterButton visible (in case it was hidden on the last screen)
+    showButton(resetButton);; // Make the resetButton visible (in case it was hidden on the last screen)
+    team.style.display = 'none'; // Hide the team div element
     gameStats.style.display = 'none'; // Hide the gameStats div element (in case it was visible on the last screen)
 
     // Add event listeners to all buttons
