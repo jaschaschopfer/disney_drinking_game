@@ -43,4 +43,9 @@ img {
     margin: 5px 0; /* Reduziert den Abstand oberhalb und unterhalb von p */
 }
 
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
 
