@@ -278,6 +278,7 @@ img {
 
 /* Responsive Anpassungen für kleinere Bildschirme */
 @media (max-width: 600px) {
+    
     h1 {
         font-size: 2em;
         /* Etwas kleinere Schriftgröße auf kleineren Bildschirmen */
