@@ -1,0 +1,47 @@
+body {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#team {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.infoBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+img {
+    display: block;
+    margin: 0 auto 10px; /* Bild zentrieren und Abstand nach unten */
+    width: 100%;
+    max-width: 300px;
+}
+
+.infoBox h3 {
+    margin: 10px 0 5px; /* Reduziert den Abstand oberhalb und unterhalb von h3 */
+    font-size: 30px; 
+    color: #fa709a; 
+}
+
+.infoBox p {
+    margin: 5px 0; /* Reduziert den Abstand oberhalb und unterhalb von p */
+}
+
+
