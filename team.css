@@ -6,6 +6,7 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
+    padding-bottom: 30px;
 }
 
 #team {
@@ -30,8 +31,6 @@ body {
 img {
     display: block;
     margin: 0 auto 10px; /* Bild zentrieren und Abstand nach unten */
-    width: 100%;
-    max-width: 300px;
 }
 
 .infoBox h3 {
