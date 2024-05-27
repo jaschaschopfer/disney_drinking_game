@@ -175,7 +175,6 @@ function showButton(button) {
     button.style.visibility = "visible";
 }
 
-// Progress bar
 function updatePlayerProgressBars() {
     playerProgressBars.innerHTML = ''; // Clear previous progress bars
 
@@ -221,8 +220,7 @@ function gameOver(player) {
 
 
 
-// PLAYER LOGIC  -- Manage players and gulps
-// Add one gulp to CurrentPlayer
+// PLAYER LOGIC FUNCTIONS -- Manage players and gulps
 function addGulpToCurrentPlayer() { //this function is called everytime a wrong answer is clicked
     let currentPlayer = localStorage.getItem("currentPlayer");
     if (currentPlayer) {
@@ -282,7 +280,17 @@ function checkIfPlayerLost(player) {
 
 }
 
-//Funktionen mit API
+//API FUNCTIONS -- Get data from the API
+async function fetchData(url) { //this function is called every time data as json from the API is needed
+    try {
+        let response = await fetch(url);
+        let data = await response.json();
+        return data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
 
 async function getAllIds() {
     try {
@@ -303,8 +311,8 @@ async function getAllIds() {
             });
             // Update loading bar
             let progress = (siteCount / maximalSiteCount) * 100;
-            loadingBar.style.width = `${progress}%`;
-            loadingBar.innerText = `${Math.round(progress)}%`;
+            loadingBar.style.width = `${progress}%`; //set the width of the loading bar to the current progress
+            loadingBar.innerText = `${Math.round(progress)}%`; //round to the next integer and show the percentage
         }
     } catch (error) {
         console.error('Error:', error);
@@ -314,10 +322,10 @@ async function getAllIds() {
 async function nextQuestionPlease() { //function is called to get API data to create a new question
     localStorage.removeItem("currentPlayer"); //remove currentPlayer as new question is created, temporary gulps were already loaded to chosen player
 
-    let figure = await getRandomFigure(); //zufälligen Charakter holen
-    let randomName1 = await getRandomName(); //zufälligen Namen holen
-    let randomName2 = await getRandomName(); //zweiten zufälligen Namen holen
-    createQuestion(figure, randomName1, randomName2); //Frage erstellen aus Charakter und zwei zufälligen Namen
+    let figure = await getRandomFigure(); //get random Character from API
+    let randomName1 = await getRandomName(); //get random name from API
+    let randomName2 = await getRandomName(); //get second random name from API
+    createQuestion(figure, randomName1, randomName2); //give character and two random names to createQuestion function
 }
 
 async function getRandomFigure(){
@@ -329,21 +337,8 @@ async function getRandomFigure(){
     return(figure); //return des zufälligen Charakters
 }
 
-
-async function getRandomName(){ 
-    let figure = await getRandomFigure(); //zufälligen Charakter holen
-    let name = figure.data.name; //Name des zufälligen Charakters speichern
-    return(name); //return des Namens des zufälligen Charakters
-}
-
-//Daten aus einer API hole - allgemeine Funktion
-async function fetchData(url) {
-    try {
-        let response = await fetch(url);
-        let data = await response.json();
-        return data;
-    }
-    catch (error) {
-        console.log(error);
-    }
+async function getRandomName(){ //this function is called to get a random name from the API
+    let figure = await getRandomFigure();
+    let name = figure.data.name; 
+    return(name);
 }
