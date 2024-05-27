@@ -131,7 +131,7 @@ function providePlayerChoices() { //this function is called after the player cli
     // Add event listener to NewPlayerButton
     document.querySelector('#newPlayerButton').addEventListener('click', () => {
         let newPlayer = createNewPlayer();
-        if (newPlayer !== null) {
+        if (newPlayer !== null && newPlayer !== undefined) {
             addGulpsToSelectedPlayer(newPlayer);
             firstTryWrong(currentPlayer, newPlayer);
         }
@@ -237,9 +237,8 @@ function addGulpToCurrentPlayer() { //this function is called everytime a wrong 
 }
 
 function createNewPlayer() {
-    let newPlayer = prompt("Enter the name of the new player:");
-    if (newPlayer == null) {
-        console.log("NULL.");
+    newPlayer = prompt("Enter the name of the new player:");
+    if (newPlayer == null) { // If the user cancels the prompt, return null
         return null;
     }
     else if (newPlayer === "") {
@@ -253,7 +252,6 @@ function createNewPlayer() {
     else {
         localStorage.setItem(newPlayer, 0);
         return newPlayer;
-    
     }
 }
 
@@ -334,9 +332,7 @@ async function nextQuestionPlease() { //function is called to get API data to cr
 }
 
 async function getRandomFigure(){
-    console.log("getRandomId");
     const randomId = allIds[Math.floor(Math.random() * allIds.length)];
-    console.log(randomId);
     let url = `https://api.disneyapi.dev/character/${randomId}`; //URL der API Anfrage mit RandomId ergänzen, dadurch kommt man auf einzlne Figure
     let figure = await fetchData(url); //Daten der API als Objekt 'figure' speichern
     return(figure); //return des zufälligen Charakters
