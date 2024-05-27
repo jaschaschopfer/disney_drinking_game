@@ -1,19 +1,20 @@
-const questionApp = document.querySelector('#questionApp'); //div Element mit der ID 'questionApp' speichern
-const weiterButton = document.querySelector('#weiterButton'); //Button mit der ID 'weiterButton' speichern
-const resetButton = document.querySelector('#resetButton'); //Button mit der ID 'resetPlayerButton' speichern
-// let url = 'https://api.disneyapi.dev/character'; // braucht es wohl nicht.
+const questionApp = document.querySelector('#questionApp'); //save div element with the ID 'questionApp' in the variable questionApp
+const weiterButton = document.querySelector('#weiterButton'); //save button element with the ID 'weiterButton' in the variable weiterButton
+const resetButton = document.querySelector('#resetButton'); //save button element with the ID 'resetButton' in the variable resetButton
+const loadingBar = document.querySelector('#loading-bar'); //save div element with the ID 'loading-bar' in the variable loadingBar
+const gameStats = document.querySelector('#gameStats'); //save div element with the ID 'gameStats' in the variable gameStats
+const playerProgressBars = document.querySelector('#playerProgressBars');   //save div element with the ID 'playerProgressBars' in the variable playerProgressBars
 let allIds = []; //Array für alle IDs erstellen
-
 
 
 
 // INIT FUNCTIONS - Get the necessary data and set up the site
 init();
-weiterButton.addEventListener('click', nextQuestionPlease);
+weiterButton.addEventListener('click', nextQuestionPlease); //if weiterButton is clicked, nextQuestionPlease function is called
 
 async function init() {
-    await getAllIds(); //alle IDs holen
-    startscreen(); //Startbildschirm anzeigen
+    await getAllIds(); //get all IDs from the API
+    startscreen(); //show the startscreen
 }
 
 
@@ -28,19 +29,16 @@ function startscreen() {
     <p>🤔 You guess until you get it right!</p>
     <p>👉 Get it first try and decide who's next!</p>
     <p>🏁 First with 20 sips finishes the whole magic potion</p>
-    `; // Set the content of the div element
-    weiterButton.innerText = "Start the magic!"; // Change the text of the weiterButton
-    // showButton(weiterButton);; // Make the weiterButton visible
-    console.log(weiterButton);
-    showButton(weiterButton);
-    document.querySelector('#gameStats').style.display = 'none';
+    `; // Load the content of the startscreen into the questionApp div element
+    weiterButton.innerText = "Start the magic!"; // Set the text of the weiterButton
+    showButton(weiterButton); // Make the weiterButton visible (because it was hidden initially on the loading screen)
+    loadingBar.style.display = 'none'; // Hide the loading bar
+    gameStats.style.display = 'none';   // Hide the gameStats div element
 }
 
 function createQuestion(figure, randomName1, randomName2) {
-    // Create an array with all button names
-    let buttonNames = [figure.data.name, randomName1, randomName2];
-    // Shuffle the array to randomize button positions
-    buttonNames.sort(() => Math.random() - 0.5);
+    let buttonNames = [figure.data.name, randomName1, randomName2]; // Create an array with all button names (including the correct answer (first element))
+    buttonNames.sort(() => Math.random() - 0.5);    // Shuffle the array to randomize button positions
 
     let question = document.createElement('div'); // Create a new div element
     question.innerHTML = `
@@ -52,60 +50,90 @@ function createQuestion(figure, randomName1, randomName2) {
         <button id="button3">${buttonNames[2]}</button>
     </div>
     `; // Set the content of the div element, including the character image and three buttons
+
     questionApp.innerHTML = ""; // Clear the content of the div element
     questionApp.appendChild(question); // Append the div element to the body
 
     weiterButton.innerText = "Skip!"; // Change the text of the weiterButton
-    showButton(weiterButton);; // Make the weiterButton visible
-    showButton(resetButton);; // Make the resetButton visible$
-    document.querySelector('#gameStats').style.display = 'none';
+    showButton(weiterButton);; // Make the weiterButton visible (in case it was hidden on the last screen)
+    showButton(resetButton);; // Make the resetButton visible (in case it was hidden on the last screen)
+    gameStats.style.display = 'none'; // Hide the gameStats div element (in case it was visible on the last screen)
 
     // Add event listeners to all buttons
     document.querySelector('#button1').addEventListener('click', () => {
-        evaluateAnswer(buttonNames[0], figure.data.name, 'button1');
+        evaluateAnswer(buttonNames[0], figure.data.name, 'button1'); //send the clicked button name, the correct answer and the button ID to the evaluateAnswer function
         hideButton(weiterButton);
     });
 
     document.querySelector('#button2').addEventListener('click', () => {
-        evaluateAnswer(buttonNames[1], figure.data.name, 'button2');
+        evaluateAnswer(buttonNames[1], figure.data.name, 'button2'); //send the clicked button name, the correct answer and the button ID to the evaluateAnswer function
         hideButton(weiterButton);
     });
 
     document.querySelector('#button3').addEventListener('click', () => {
-        evaluateAnswer(buttonNames[2], figure.data.name, 'button3');
+        evaluateAnswer(buttonNames[2], figure.data.name, 'button3'); //send the clicked button name, the correct answer and the button ID to the evaluateAnswer function
         hideButton(weiterButton);
     });
 }
 
 function evaluateAnswer(clickedAnswer, correctAnswer, buttonX) {
-    if (clickedAnswer === correctAnswer) {
-        console.log("Correct!");
-        let clickedButton = document.querySelector(`#${buttonX}`);
+    if (clickedAnswer === correctAnswer) { // Check if the clicked answer is the correct answer
+        let clickedButton = document.querySelector(`#${buttonX}`); // Get the clicked button element
         clickedButton.style.backgroundColor = "green";
 
         setTimeout(() => {
-            if (localStorage.getItem("currentPlayer")) {
+            if (localStorage.getItem("currentPlayer")) { // Check if the currentPlayer has saved gulps (if so, the player guessed wrong before)
             questionApp.innerHTML = "";
-            providePlayerChoices();
+            providePlayerChoices(); // Provide player choices to assign the gulps (from the wrong guesses before) to the correct player
             }
             else {
-                firstTryCorrect();
+                firstTryCorrect(); // If the player guessed right on the first try, show the firstTryCorrect screen
             }
-        }, 1000); // Delay the execution of clearing the question app and providing player choices by 1 second
+        }, 1000); // Delay the execution of clearing the question app and providing player choices by 1 second to show green color of button before continuing
         return true;
+    
     } else {
-        console.log("Incorrect.");
         let clickedButton = document.querySelector(`#${buttonX}`);
         clickedButton.style.backgroundColor = "red";
-
-        addGulpToCurrentPlayer();
-
+        addGulpToCurrentPlayer(); // Eachtime a wrong answer is clicked, add one gulp to the temporary player 'currentPlayer' (gulps will be added to the correct player later on)
         return false;
     }
 }
 
+function providePlayerChoices() { //this function is called after the player clicked the correct answer but had wrong guesses before
+    
+    // Get all players except currentPlayer (as this is only temporarly used for saving current gulps)
+    let currentPlayer = localStorage.getItem("currentPlayer");
+    let allPlayers = Object.keys(localStorage).filter(player => player !== "currentPlayer"); // Get all player names from localStorage except currentPlayer
+
+    // Display player choices and NewPlayerButton
+    clearButton(weiterButton);
+    let playerChoiceHTML = "<h2>Who was guessing?</h2>";
+    allPlayers.forEach(player => {
+        playerChoiceHTML += `<button class="playerChoiceButton existingPlayerChoiceButton">${player}</button>`; // Create a button for each player, add class existingPlayerChoiceButton
+    });
+    playerChoiceHTML += `<button class="playerChoiceButton" id="newPlayerButton">A new player</button>`; // Create a button for a new player, add id newPlayerButton
+    questionApp.innerHTML = playerChoiceHTML;
+
+    // Add event listeners to player choice buttons 
+    document.querySelectorAll('.existingPlayerChoiceButton').forEach(button => {
+        button.addEventListener('click', () => {
+            addGulpsToSelectedPlayer(button.textContent);
+            firstTryWrong(currentPlayer, button.textContent);
+        });
+    });
+
+    // Add event listener to NewPlayerButton
+    document.querySelector('#newPlayerButton').addEventListener('click', () => {
+        let newPlayer = createNewPlayer();
+        if (newPlayer !== null) {
+            addGulpsToSelectedPlayer(newPlayer);
+            firstTryWrong(currentPlayer, newPlayer);
+        }
+    });
+}
+
 function firstTryCorrect() {
-    console.log("First try correct!");
     questionApp.innerHTML = `
     <h2>You guessed it first try! 🎉</h2>
     <p>Hand the phone to your desired person - Let him taste the magic! - 📱➡️🧙‍♂️</p>`
@@ -113,11 +141,11 @@ function firstTryCorrect() {
     showButton(weiterButton);
 }
 
-function firstTryWrong(currentPlayer, player) {
-    if (checkIfPlayerLost(player)) {
-        gameOver(player);
-    } else {
-        console.log(`${player} takes ${currentPlayer} sip(s)!`);
+function firstTryWrong(currentPlayer, player) { //this function is called to set up the screen after the player clicked on his name to take the sips
+    if (checkIfPlayerLost(player)) { //if player has 20 sips, it's already game over
+        gameOver(player); //show the game over screen with the player who lost
+    } else { //if player has still less than 20 sips, show the screen with the sips he has to take
+
         if (currentPlayer > 1){
             questionApp.innerHTML = `
             <h2>${player}, take ${currentPlayer} sips!🍻</h2>
@@ -127,10 +155,10 @@ function firstTryWrong(currentPlayer, player) {
             <h2>${player}, take ${currentPlayer} sip!🍻</h2>
             <p>Hand the phone to your next person</p>`
         }
-        weiterButton.innerText = "Wonderful, thanks!";
+        weiterButton.innerText = "Wonderful, thanks!"; //let the player thank for the sips
         showButton(weiterButton);
 
-        document.querySelector('#gameStats').style.display = 'block';
+        gameStats.style.display = 'block'; // Show the progress of the game displaying the sips of each player (gameStats)
     }
 }
 
@@ -149,28 +177,28 @@ function showButton(button) {
 
 // Progress bar
 function updatePlayerProgressBars() {
-    const playerProgressBars = document.getElementById('playerProgressBars');
     playerProgressBars.innerHTML = ''; // Clear previous progress bars
 
-    // Iterate over each player stored in localStorage
-    for (let i = 0; i < localStorage.length; i++) {
+    for (let i = 0; i < localStorage.length; i++) { //do the process for each player (using i as index for the localStorage keys(player names))
         const playerName = localStorage.key(i);
         const player = parseInt(localStorage.getItem(playerName));
-        if (playerName !== 'currentPlayer' && player < 20) {
-            const playerGulps = parseInt(localStorage.getItem(playerName));
-            const maxGulps = 20; // Assuming each player has to take a maximum of 20 sips
+        if (playerName !== 'currentPlayer' && player < 20) { // avoid adding the temporary player 'currentPlayer' or players who already have 20 sips (for game over screen where only for other players the progress is shown)
+            const playerGulps = parseInt(localStorage.getItem(playerName)); //number of gulps the player has taken
+            const maxGulps = 20; //maximum gulps of game (20 sips is game over)
 
-            // Calculate the width of the progress bar based on the percentage of sips taken
-            const progressWidth = ((playerGulps + 0.1) / maxGulps) * 100;
+            
+            const progressWidth = ((playerGulps + 0.1) / maxGulps) * 100;   // Calculate the width of the progress bar based on the percentage of sips taken
 
             // Create HTML elements for the progress bar, its container, and the player name
             const progressBarContainer = document.createElement('div');
             progressBarContainer.classList.add('playerProgressBar');
 
+            // create title (name and gulps) for above progress bar
             const playerNameElement = document.createElement('span');
             playerNameElement.textContent = `${playerName}: ${playerGulps} / ${maxGulps} sips`;
             playerNameElement.classList.add('playerName');
 
+            // create progressbar
             const progressBar = document.createElement('div');
             progressBar.classList.add('playerProgress');
             progressBar.style.width = progressWidth + '%';
@@ -183,51 +211,26 @@ function updatePlayerProgressBars() {
     }
 }
 
+function gameOver(player) {
+    let playerGulps = parseInt(localStorage.getItem(player));
+    questionApp.innerHTML = `
+    <h1>Game Over!</h1>
+    <h2>${player}, you got a total of ${playerGulps} sips. Now you have the honor to drink the rest of your whole magic potion! 🎉 </h2>`
+    gameStats.style.display = 'block';
+}
 
 
 
-// PLAYER FUNCTIONS -- Add, reset players, add gulps etc.
+// PLAYER LOGIC  -- Manage players and gulps
 // Add one gulp to CurrentPlayer
-function addGulpToCurrentPlayer() {
+function addGulpToCurrentPlayer() { //this function is called everytime a wrong answer is clicked
     let currentPlayer = localStorage.getItem("currentPlayer");
     if (currentPlayer) {
         let currentPlayerCount = parseInt(currentPlayer);
-        localStorage.setItem("currentPlayer", currentPlayerCount + 1);
+        localStorage.setItem("currentPlayer", currentPlayerCount + 1); //add one gulp to the temporary player 'currentPlayer'
     } else {
-        localStorage.setItem("currentPlayer", 1);
+        localStorage.setItem("currentPlayer", 1); //if no wrong answer was clicked before yet, create the temporary player 'currentPlayer' and add one gulp
     }
-}
-
-function providePlayerChoices() {
-    // Get all players except currentPlayer (as this is only temporarly used for saving current gulps)
-    let currentPlayer = localStorage.getItem("currentPlayer");
-    let allPlayers = Object.keys(localStorage).filter(player => player !== "currentPlayer");
-
-    // Display player choices and NewPlayerButton
-    clearButton(weiterButton); // Hide the weiterButton
-    let playerChoiceHTML = "<h2>Who was guessing?</h2>";
-    allPlayers.forEach(player => {
-        playerChoiceHTML += `<button class="playerChoiceButton existingPlayerChoiceButton">${player}</button>`;
-    });
-    playerChoiceHTML += `<button class="playerChoiceButton" id="newPlayerButton">A new player</button>`;
-    questionApp.innerHTML = playerChoiceHTML;
-
-    // Add event listeners to player choice buttons
-    document.querySelectorAll('.existingPlayerChoiceButton').forEach(button => {
-        button.addEventListener('click', () => {
-            addGulpsToSelectedPlayer(button.textContent);
-            firstTryWrong(currentPlayer, button.textContent);
-        });
-    });
-
-    // Add event listener to NewPlayerButton
-    document.querySelector('#newPlayerButton').addEventListener('click', () => {
-        let newPlayer = createNewPlayer();
-        if (newPlayer !== null) {
-            addGulpsToSelectedPlayer(newPlayer);
-            firstTryWrong(currentPlayer, newPlayer);
-        }
-    });
 }
 
 function createNewPlayer() {
@@ -268,6 +271,7 @@ resetButton.addEventListener('click', () => {
     }
 });
 
+// Game over check
 function checkIfPlayerLost(player) {
     let playerGulps = parseInt(localStorage.getItem(player));
     if (playerGulps >= 20) {
@@ -278,57 +282,42 @@ function checkIfPlayerLost(player) {
 
 }
 
-function gameOver(player) {
-    let playerGulps = parseInt(localStorage.getItem(player));
-    questionApp.innerHTML = `
-    <h1>Game Over!</h1>
-    <h2>${player}, you got a total of ${playerGulps} sips. Now you have the honor to drink the rest of your whole magic potion! 🎉 </h2>`
-    document.querySelector('#gameStats').style.display = 'block';
-}
-
-
 //Funktionen mit API
+
 async function getAllIds() {
     try {
         let siteCount = 0;
-        let figures = await fetchData(`https://api.disneyapi.dev/character`)
-        let maximalSiteCount = figures.info.totalPages
+        let figures = await fetchData(`https://api.disneyapi.dev/character`); // connect to the API
+        let maximalSiteCount = figures.info.totalPages; // get the total number of pages from the API
 
-        questionApp.innerHTML = "";
         questionApp.innerHTML = `
-        <h2>Loading game... Please wait.</h2>
-        <p>Approximately ${maximalSiteCount*50} Disney figures are being loaded.</p>`
+            <h2>Loading game... Please wait.</h2>
+            <p>Approximately ${maximalSiteCount * 50} Disney figures are being loaded.</p>
+        `; // Show loading screen with the number of figures to be loaded
 
-        console.log(`Loading approximately ${maximalSiteCount*50} Disney figures... Please wait.`);
-
-        while (siteCount <= 10) { //ACHTUNG HIER NUR VORÜBERGEHEND AUF 10 GESCHALTET, DA SONST ZU LANGE WARTEDAUER
-            siteCount++;
-            let figures = await fetchData(`https://api.disneyapi.dev/character?page=${siteCount}&pageSize=50`);
+        while (siteCount <= maximalSiteCount) { // load IDs from each page until the last page is reached
+            siteCount++; // increase siteCount by 1
+            let figures = await fetchData(`https://api.disneyapi.dev/character?page=${siteCount}&pageSize=50`); // connect to certain page of the API
             figures.data.forEach((figure) => {
-                // console.log(figure._id);
-                allIds.push(figure._id);
+                allIds.push(figure._id); // add ID of figure to the allIds array
             });
+            // Update loading bar
+            let progress = (siteCount / maximalSiteCount) * 100;
+            loadingBar.style.width = `${progress}%`;
+            loadingBar.innerText = `${Math.round(progress)}%`;
         }
-        questionApp.innerHTML = ""
-        questionApp.innerHTML = `<h2>All IDs loaded!</h2>`
-        console.log("All IDs loaded!");
     } catch (error) {
         console.error('Error:', error);
     }
 }
 
-async function nextQuestionPlease() {
-    localStorage.removeItem("currentPlayer");
+async function nextQuestionPlease() { //function is called to get API data to create a new question
+    localStorage.removeItem("currentPlayer"); //remove currentPlayer as new question is created, temporary gulps were already loaded to chosen player
 
     let figure = await getRandomFigure(); //zufälligen Charakter holen
-    let randomName1 = await getRandomName();
-    let randomName2 = await getRandomName();
-    createQuestion(figure, randomName1, randomName2); //Frage erstellen
-
-    //Überprüfung in der Console
-    console.log("Das ist der richtige Namen " + figure.data.name);
-    console.log("Das ist randomName1 " + randomName1);
-    console.log("Das ist randomName2 " + randomName2);
+    let randomName1 = await getRandomName(); //zufälligen Namen holen
+    let randomName2 = await getRandomName(); //zweiten zufälligen Namen holen
+    createQuestion(figure, randomName1, randomName2); //Frage erstellen aus Charakter und zwei zufälligen Namen
 }
 
 async function getRandomFigure(){
@@ -358,16 +347,3 @@ async function fetchData(url) {
         console.log(error);
     }
 }
-
-
-
-
-// fetch('https://api.disneyapi.dev/character')
-//     .then(response => response.json())
-//     .then(data => {
-//         const randomObject = data[Math.floor(Math.random() * data.length)];
-//         console.log(randomObject);
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//     });
