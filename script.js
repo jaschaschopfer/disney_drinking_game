@@ -1,7 +1,7 @@
 const questionApp = document.querySelector('#questionApp'); //save div element with the ID 'questionApp' in the variable questionApp
 const weiterButton = document.querySelector('#weiterButton'); //save button element with the ID 'weiterButton' in the variable weiterButton
 const resetButton = document.querySelector('#resetButton'); //save button element with the ID 'resetButton' in the variable resetButton
-const loadingBar = document.getElementById('loading-bar'); //save div element with the ID 'loading-bar' in the variable loadingBar
+const loadingBar = document.querySelector('#loading-bar'); //save div element with the ID 'loading-bar' in the variable loadingBar
 const gameStats = document.querySelector('#gameStats'); //save div element with the ID 'gameStats' in the variable gameStats
 const playerProgressBars = document.querySelector('#playerProgressBars');   //save div element with the ID 'playerProgressBars' in the variable playerProgressBars
 let allIds = []; //Array für alle IDs erstellen
@@ -32,6 +32,7 @@ function startscreen() {
     `; // Load the content of the startscreen into the questionApp div element
     weiterButton.innerText = "Start the magic!"; // Set the text of the weiterButton
     showButton(weiterButton); // Make the weiterButton visible (because it was hidden initially on the loading screen)
+    loadingBar.style.display = 'none'; // Hide the loading bar
     gameStats.style.display = 'none';   // Hide the gameStats div element
 }
 
@@ -309,29 +310,6 @@ async function getAllIds() {
         console.error('Error:', error);
     }
 }
-
-// async function getAllIds() {
-//     try {
-//         let siteCount = 0;
-//         let figures = await fetchData(`https://api.disneyapi.dev/character`) //connect to the API
-//         let maximalSiteCount = figures.info.totalPages; // get the total number of pages from the API
-
-//         questionApp.innerHTML = "";
-//         questionApp.innerHTML = `
-//         <h2>Loading game... Please wait.</h2>
-//         <p>Approximately ${maximalSiteCount*50} Disney figures are being loaded.</p>` // Show loading screen with the number of figures to be loaded§
-
-//         while (siteCount <= maximalSiteCount) { //load IDs from each page until the last page is reached
-//             siteCount++; // increase siteCount by 1
-//             let figures = await fetchData(`https://api.disneyapi.dev/character?page=${siteCount}&pageSize=50`); //connect to certain page of the API
-//             figures.data.forEach((figure) => {
-//                 allIds.push(figure._id); //add ID of figure to the allIds array
-//             });
-//         }
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-// }
 
 async function nextQuestionPlease() { //function is called to get API data to create a new question
     localStorage.removeItem("currentPlayer"); //remove currentPlayer as new question is created, temporary gulps were already loaded to chosen player
