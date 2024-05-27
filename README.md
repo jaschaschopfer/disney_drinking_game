@@ -28,7 +28,7 @@ Learnings
 Schwierigkeiten
 - 
 
-- Aufteilen in elementare Funktionen war zum Teil im Nachhinein noch nötig
+- Kein Vermischen der Funktionen: Im Nachhinein mussten wir einige Funktionen noch aufsplitten
 - Debuggen / Testing sehr intensiv, damit man alle Fälle abdeckt
 - ChatGPT hat geholfen, aber vieles uneinheitlich gemacht. Hier musste man nachbessern
 - Übersicht über html und css, da vieles von JS kommt. Browser --> Untersuchen hat Abhilfe geschafft
