@@ -2,7 +2,6 @@ const questionApp = document.querySelector('#questionApp'); //save div element w
 const weiterButton = document.querySelector('#weiterButton'); //save button element with the ID 'weiterButton' in the variable weiterButton
 const resetButton = document.querySelector('#resetButton'); //save button element with the ID 'resetButton' in the variable resetButton
 const loadingBar = document.querySelector('#loading-bar'); //save div element with the ID 'loading-bar' in the variable loadingBar
-const team = document.querySelector('#team'); //save div element with the ID 'team' in the variable team
 const gameStats = document.querySelector('#gameStats'); //save div element with the ID 'gameStats' in the variable gameStats
 const playerProgressBars = document.querySelector('#playerProgressBars');   //save div element with the ID 'playerProgressBars' in the variable playerProgressBars
 let allIds = []; //Array für alle IDs erstellen
@@ -31,7 +30,6 @@ function startscreen() {
     <p>👉 Get it first try and decide who's next!</p>
     <p>🏁 First with 20 sips finishes the whole magic potion</p>
     `; // Load the content of the startscreen into the questionApp div element
-    team.style.display = 'block'; // Show the team div element
     weiterButton.innerText = "Start the magic!"; // Set the text of the weiterButton
     showButton(weiterButton); // Make the weiterButton visible (because it was hidden initially on the loading screen)
     loadingBar.style.display = 'none'; // Hide the loading bar
