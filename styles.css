@@ -2,45 +2,13 @@
     width: 100%;
 } */
 
+/* Variabeln */ 
 :root {
     --questionImageHeight: 300px;
     --questionImageWidth: 300px;
+    --buttonBackgroundColor: #8ec5fc;
+    --buttonHoverBackgroundColor: #3c8ce7;
 }
-
-#questionAppContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-}
-
-#questionImage {
-    width: var(--questionImageWidth);
-    height: var(--questionImageHeight);
-    object-fit: cover;
-    object-position: center;
-}
-
-#weiterButton {
-    visibility: hidden;
-}
-
-#resetButton {
-    cursor: pointer;
-    position: absolute;
-    margin: 0;
-    top: 10px;
-    right: 10px;
-    width: 40px; /* Adjust as needed */
-    height: 40px; /* Adjust as needed */
-    visibility: hidden;
-}
-
-#resetButton path {
-    stroke-width: 2; /* Adjust thickness of strokes */
-}
-
 
 /* Importieren der Google-Schriftart */
 @import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
@@ -58,6 +26,33 @@ body {
     height: 100vh;
 }
 
+h1 {
+    font-size: 48px;               /* Große Schriftgröße für gute Sichtbarkeit */
+    color:#3c8ce7;                /* Wählt eine ansprechende, leuchtende Farbe */
+    text-align: center;            /* Zentriert den Titel horizontal */
+    font-weight: bold;             /* Macht die Schrift fett, um mehr Aufmerksamkeit zu erregen */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Fügt einen weichen Schatten hinzu für mehr Tiefe */
+    margin-top: 20px;              /* Fügt oben einen Abstand hinzu */
+    margin-bottom: 20px;           /* Fügt unten einen Abstand hinzu */
+    padding: 10px;                 /* Fügt innen ein wenig Polsterung hinzu für bessere Optik */
+    border-radius: 10px;           /* Abgerundete Ecken für modernes Aussehen */
+}
+
+h2 {
+    color: #fa709a; /* Sanftes Violett */
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+h3 {
+    color: #333;
+    font-size: 1.50em;
+}
+
+p {
+    color:#333;
+    font-size: 1.30em;
+}
 
 /* Stil des Hauptcontainers */
 #gameContainer {
@@ -68,14 +63,15 @@ body {
     border-radius: 20px;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Schatten für Tiefeneffekt */ 
     position: relative;
 }
+
 
 #gameStats {
     text-align: left;
     margin: 20px;
-    display: none;
+    display: none; /* Versteckt das Element standartmässig */ 
 }
 
 #gameStats h3 {
@@ -93,12 +89,12 @@ button {
     cursor: pointer;
     font-size: 1.2em;
     font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: transform 0.2s, background-color 0.3s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Schatten für Tiefeneffekt */ 
+    transition: transform 0.2s, background-color 0.3s; /* Weiche Übergänge für Transform und Farbänderung */
 }
 
 button:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Vergrößert den Button leicht beim Hover */
     background-color: #3c8ce7; /* Ein dunkleres Blau beim Hover */
 }
 
@@ -109,7 +105,6 @@ button:hover {
     margin: 10px auto; /* Zentriert die Buttons horizontal mit Auto-Margin */
     display: block; /* Stellt sicher, dass jeder Button seine eigene Zeile einnimmt */
 }
-
 
 .playerChoiceButton {
     width: 90%;             /* Setzt die Breite jedes Buttons auf 90% des Elternelements */
@@ -138,7 +133,23 @@ button:hover {
 }
 
 #weiterButton {
+    visibility: hidden; /* Versteckt den Button standardmäßig */
     background-color: #fbc2eb; /* Ein weiches Rosa */
+    }
+
+#resetButton {
+    cursor: pointer;
+    position: absolute;
+    margin: 0;
+    top: 10px;
+    right: 10px;
+    width: 40px; /* Adjust as needed */
+    height: 40px; /* Adjust as needed */
+    visibility: hidden; /* Versteckt den Button standardmässig */
+}
+
+#resetButton path {
+    stroke-width: 2; /* Adjust thickness of strokes */
 }
 
 #menu button {
@@ -148,8 +159,6 @@ button:hover {
 }
 
 /* Progress bar */
-
-/* CSS for progress bars */
 .playerProgressBar {
     display: flex;
     flex-direction: column;
@@ -169,16 +178,26 @@ button:hover {
 
 
 /* Fragen und Antworten Stil */
-#questionApp h2 {
-    color: #fa709a; /* Sanftes Violett */
-    margin-bottom: 20px;
-    font-size: 1.8em;
+
+#questionAppContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
 }
 
 #questionImage {
     max-width: 100%; /* Bild an Containerbreite anpassen */
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#questionImage {
+    width: var(--questionImageWidth);
+    height: var(--questionImageHeight);
+    object-fit: cover;
+    object-position: center;
 }
 
 /* Responsive Design für kleinere Geräte */
@@ -189,21 +208,10 @@ button:hover {
     }
 }
 
-h1 {
-    font-size: 48px;               /* Große Schriftgröße für gute Sichtbarkeit */
-    color:#3c8ce7;                /* Wählt eine ansprechende, leuchtende Farbe */
-    text-align: center;            /* Zentriert den Titel horizontal */
-    font-weight: bold;             /* Macht die Schrift fett, um mehr Aufmerksamkeit zu erregen */
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Fügt einen weichen Schatten hinzu für mehr Tiefe */
-    margin-top: 20px;              /* Fügt oben einen Abstand hinzu */
-    margin-bottom: 20px;           /* Fügt unten einen Abstand hinzu */
-    padding: 10px;                 /* Fügt innen ein wenig Polsterung hinzu für bessere Optik */
-    border-radius: 10px;           /* Abgerundete Ecken für modernes Aussehen */
-}
 
 /* Responsive Anpassungen für kleinere Bildschirme */
 @media (max-width: 600px) {
     h1 {
         font-size: 32px;           /* Etwas kleinere Schriftgröße auf kleineren Bildschirmen */
     }
-}
+} 
