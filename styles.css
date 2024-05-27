@@ -2,7 +2,7 @@
     width: 100%;
 } */
 
-/* Variabeln */ 
+/* Variabeln */
 :root {
     --questionImageHeight: 300px;
     --questionImageWidth: 300px;
@@ -15,8 +15,10 @@
 
 /* Grundlegende Stile */
 body {
-    background-image: linear-gradient(to right, #8ec5fc 0%, #fbc2eb 99%, #fad0c4 100%); /* Weicher Gradient, der den Sonnenuntergang nachahmt */
-    font-family: 'Handlee', cursive; /* Eine lockere, handgeschriebene Schriftart */
+    background-image: linear-gradient(to right, #8ec5fc 0%, #fbc2eb 99%, #fad0c4 100%);
+    /* Weicher Gradient, der den Sonnenuntergang nachahmt */
+    font-family: 'Handlee', cursive;
+    /* Eine lockere, handgeschriebene Schriftart */
     color: #333;
     margin: 0;
     padding: 0;
@@ -27,19 +29,29 @@ body {
 }
 
 h1 {
-    font-size: 48px;               /* Große Schriftgröße für gute Sichtbarkeit */
-    color:#3c8ce7;                /* Wählt eine ansprechende, leuchtende Farbe */
-    text-align: center;            /* Zentriert den Titel horizontal */
-    font-weight: bold;             /* Macht die Schrift fett, um mehr Aufmerksamkeit zu erregen */
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Fügt einen weichen Schatten hinzu für mehr Tiefe */
-    margin-top: 20px;              /* Fügt oben einen Abstand hinzu */
-    margin-bottom: 20px;           /* Fügt unten einen Abstand hinzu */
-    padding: 10px;                 /* Fügt innen ein wenig Polsterung hinzu für bessere Optik */
-    border-radius: 10px;           /* Abgerundete Ecken für modernes Aussehen */
+    font-size: 48px;
+    /* Große Schriftgröße für gute Sichtbarkeit */
+    color: #3c8ce7;
+    /* Wählt eine ansprechende, leuchtende Farbe */
+    text-align: center;
+    /* Zentriert den Titel horizontal */
+    font-weight: bold;
+    /* Macht die Schrift fett, um mehr Aufmerksamkeit zu erregen */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    /* Fügt einen weichen Schatten hinzu für mehr Tiefe */
+    margin-top: 20px;
+    /* Fügt oben einen Abstand hinzu */
+    margin-bottom: 20px;
+    /* Fügt unten einen Abstand hinzu */
+    padding: 10px;
+    /* Fügt innen ein wenig Polsterung hinzu für bessere Optik */
+    border-radius: 10px;
+    /* Abgerundete Ecken für modernes Aussehen */
 }
 
 h2 {
-    color: #fa709a; /* Sanftes Violett */
+    color: #fa709a;
+    /* Sanftes Violett */
     margin-bottom: 20px;
     font-size: 1.8em;
 }
@@ -50,7 +62,7 @@ h3 {
 }
 
 p {
-    color:#333;
+    color: #333;
     font-size: 1.30em;
 }
 
@@ -58,12 +70,15 @@ p {
 #gameContainer {
     width: 80%;
     max-width: 650px;
-    background-color: #fff4e6; /* Sehr helles Orangegelb für den Innenraum */
-    border: 5px solid #fa709a; /* Helles Rosa als Randfarbe */
+    background-color: #fff4e6;
+    /* Sehr helles Orangegelb für den Innenraum */
+    border: 5px solid #fa709a;
+    /* Helles Rosa als Randfarbe */
     border-radius: 20px;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Schatten für Tiefeneffekt */ 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Schatten für Tiefeneffekt */
     position: relative;
 }
 
@@ -71,7 +86,8 @@ p {
 #gameStats {
     text-align: left;
     margin: 20px;
-    display: none; /* Versteckt das Element standartmässig */ 
+    display: none;
+    /* Versteckt das Element standartmässig */
 }
 
 #gameStats h3 {
@@ -80,7 +96,8 @@ p {
 
 /* Allgemeine Button-Stile */
 button {
-    background-color: #8ec5fc; /* Helles Blau, ähnlich dem Himmelfarbe */
+    background-color: #8ec5fc;
+    /* Helles Blau, ähnlich dem Himmelfarbe */
     color: white;
     border: none;
     padding: 15px 30px;
@@ -89,53 +106,79 @@ button {
     cursor: pointer;
     font-size: 1.2em;
     font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Schatten für Tiefeneffekt */ 
-    transition: transform 0.2s, background-color 0.3s; /* Weiche Übergänge für Transform und Farbänderung */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Schatten für Tiefeneffekt */
+    transition: transform 0.2s, background-color 0.3s;
+    /* Weiche Übergänge für Transform und Farbänderung */
 }
 
 button:hover {
-    transform: scale(1.05); /* Vergrößert den Button leicht beim Hover */
-    background-color: #3c8ce7; /* Ein dunkleres Blau beim Hover */
+    transform: scale(1.05);
+    /* Vergrößert den Button leicht beim Hover */
+    background-color: #3c8ce7;
+    /* Ein dunkleres Blau beim Hover */
 }
 
 /* Antwort-Buttons */
-#button1, #button2, #button3 {
+#button1,
+#button2,
+#button3 {
     width: 90%;
     padding: 15px;
-    margin: 10px auto; /* Zentriert die Buttons horizontal mit Auto-Margin */
-    display: block; /* Stellt sicher, dass jeder Button seine eigene Zeile einnimmt */
+    margin: 10px auto;
+    /* Zentriert die Buttons horizontal mit Auto-Margin */
+    display: block;
+    /* Stellt sicher, dass jeder Button seine eigene Zeile einnimmt */
 }
 
 .playerChoiceButton {
-    width: 90%;             /* Setzt die Breite jedes Buttons auf 90% des Elternelements */
-    padding: 15px;          /* Fügt gleichmäßig 15px Polsterung hinzu */
-    margin: 10px auto 10px; /* Zentriert die Buttons horizontal und fügt oben und unten 10px Abstand hinzu */
-    display: block;         /* Stellt sicher, dass jeder Button als Block angezeigt wird und seine eigene Zeile einnimmt */
-    background-color: #8ec5fc; /* Helles Blau, ähnlich dem Himmelfarbe */
-    color: white;           /* Weiße Textfarbe */
-    border: none;           /* Kein Rahmen */
-    border-radius: 10px;    /* Runde Ecken mit 10px Radius */
-    cursor: pointer;        /* Ändert den Mauszeiger zu einem Zeiger, wenn er über den Button fährt */
-    font-size: 1.2em;       /* Legt eine größere Schriftgröße fest */
-    font-weight: bold;      /* Fettgedruckter Text */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Fügt einen Schatten hinzu für einen leicht erhöhten Effekt */
-    transition: transform 0.2s, background-color 0.3s; /* Weiche Übergänge für Transform und Farbänderung */
+    width: 90%;
+    /* Setzt die Breite jedes Buttons auf 90% des Elternelements */
+    padding: 15px;
+    /* Fügt gleichmäßig 15px Polsterung hinzu */
+    margin: 10px auto 10px;
+    /* Zentriert die Buttons horizontal und fügt oben und unten 10px Abstand hinzu */
+    display: block;
+    /* Stellt sicher, dass jeder Button als Block angezeigt wird und seine eigene Zeile einnimmt */
+    background-color: #8ec5fc;
+    /* Helles Blau, ähnlich dem Himmelfarbe */
+    color: white;
+    /* Weiße Textfarbe */
+    border: none;
+    /* Kein Rahmen */
+    border-radius: 10px;
+    /* Runde Ecken mit 10px Radius */
+    cursor: pointer;
+    /* Ändert den Mauszeiger zu einem Zeiger, wenn er über den Button fährt */
+    font-size: 1.2em;
+    /* Legt eine größere Schriftgröße fest */
+    font-weight: bold;
+    /* Fettgedruckter Text */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Fügt einen Schatten hinzu für einen leicht erhöhten Effekt */
+    transition: transform 0.2s, background-color 0.3s;
+    /* Weiche Übergänge für Transform und Farbänderung */
 }
 
 .playerChoiceButton:hover {
-    transform: scale(1.05); /* Vergrößert den Button leicht beim Hover */
-    background-color: #3c8ce7; /* Ein dunkleres Blau beim Hover */
+    transform: scale(1.05);
+    /* Vergrößert den Button leicht beim Hover */
+    background-color: #3c8ce7;
+    /* Ein dunkleres Blau beim Hover */
 }
 
 #newPlayerButton {
-    background-color: #fbc2eb; /* Ein weiches Rosa */
+    background-color: #fbc2eb;
+    /* Ein weiches Rosa */
     margin-top: 20px;
 }
 
 #weiterButton {
-    visibility: hidden; /* Versteckt den Button standardmäßig */
-    background-color: #fbc2eb; /* Ein weiches Rosa */
-    }
+    visibility: hidden;
+    /* Versteckt den Button standardmäßig */
+    background-color: #fbc2eb;
+    /* Ein weiches Rosa */
+}
 
 #resetButton {
     cursor: pointer;
@@ -143,13 +186,17 @@ button:hover {
     margin: 0;
     top: 10px;
     right: 10px;
-    width: 40px; /* Adjust as needed */
-    height: 40px; /* Adjust as needed */
-    visibility: hidden; /* Versteckt den Button standardmässig */
+    width: 40px;
+    /* Adjust as needed */
+    height: 40px;
+    /* Adjust as needed */
+    visibility: hidden;
+    /* Versteckt den Button standardmässig */
 }
 
 #resetButton path {
-    stroke-width: 2; /* Adjust thickness of strokes */
+    stroke-width: 2;
+    /* Adjust thickness of strokes */
 }
 
 #menu button {
@@ -173,7 +220,8 @@ button:hover {
     width: 100%;
     height: 20px;
     border-radius: 5px;
-    background-color: #4caf50; /* Color of the progress bar */
+    background-color: #4caf50;
+    /* Color of the progress bar */
 }
 
 
@@ -188,9 +236,10 @@ button:hover {
 }
 
 #questionImage {
-    max-width: 100%; /* Bild an Containerbreite anpassen */
+    max-width: 100%;
+    /* Bild an Containerbreite anpassen */
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #questionImage {
@@ -212,6 +261,19 @@ button:hover {
 /* Responsive Anpassungen für kleinere Bildschirme */
 @media (max-width: 600px) {
     h1 {
-        font-size: 32px;           /* Etwas kleinere Schriftgröße auf kleineren Bildschirmen */
+        font-size: 32px;
+        /* Etwas kleinere Schriftgröße auf kleineren Bildschirmen */
     }
-} 
+
+    #questionAppContainer {
+        display: block;
+        margin: auto;
+
+    }
+
+    #weiterButton {
+        visibility: hidden;
+        background-color: #fbc2eb;
+        margin: auto;
+    }
+}
