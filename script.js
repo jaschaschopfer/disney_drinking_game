@@ -57,7 +57,7 @@ function createQuestion(figure, randomName1, randomName2) {
     questionApp.innerHTML = ""; // Clear the content of the div element
     questionApp.appendChild(question); // Append the div element to the body
 
-    weiterButton.innerText = "Skip!"; // Change the text of the weiterButton
+    weiterButton.innerText = "No picture!"; // Change the text of the weiterButton
     showButton(weiterButton); // Make the weiterButton visible (in case it was hidden on the last screen)
     hideButton(teamButton); // Hide the teamButton
     showButton(resetButton); // Make the resetButton visible (in case it was hidden on the last screen)
